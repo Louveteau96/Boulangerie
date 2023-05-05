@@ -1,5 +1,4 @@
 package personnes;
-import produits.*;
 import batiment.*;
 import java.util.HashMap;
 
@@ -12,21 +11,7 @@ public class Boulanger implements Employe{
 	HashMap<String,Double> recetteCroissant = new HashMap<>();
 	HashMap<String, Integer> produitCuisine = new HashMap<>();
 	
-	public static final String BEURRE = "beurre";
-	public static final String CHOCOLAT = "chocolat";
-	public static final String FARINE = "farine";
-	public static final String LAIT = "lait";
-	public static final String LEVURE = "levure";
-	public static final String OEUF = "oeuf";
-	public static final String SEL = "sel";
-	public static final String SUCRE = "sucre";
-	
-	public static final String BAGUETTE = "baguette";
-	public static final String CHOCOLATINE = "chocolatine";
-	public static final String CROISSANT = "croissant";
-	
-
-	
+	//Le constructeur
 	public Boulanger(Boulangerie boulangerie, String nom){
 		this.boulangerie = boulangerie;
 		this.nom = nom;
@@ -91,56 +76,16 @@ public class Boulanger implements Employe{
 		return recap;
 	}
 	
-
+	//Le boulanger achete des Ingredients
+	@Override
+	public void acheterIngredients(String ingredient, Double qty) {
+		
+	}
 	
-
-
+	//Le boulanger se présente
 	@Override
-	public void afficher(String texte) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int QuelIngredient() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int QuelleNourriture() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double QuelleQtyDouble() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int QuelleQtyInt() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void acheterIngredients() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getNom() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Boulangerie getBoulangerie() {
-		// TODO Auto-generated method stub
-		return null;
+	public String presentation() {
+		return "Bonjour je suis " + nom;
 	}
 
 }

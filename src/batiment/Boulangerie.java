@@ -8,6 +8,8 @@ public class Boulangerie {
 	private Caisse caisse;
 	private Etalage etalage;
 	
+	StringBuilder presentation = new StringBuilder();
+	
 	public Boulangerie(String nom){
 		this.reserve = new Reserve();
 		this.etalage = new Etalage();
@@ -16,10 +18,27 @@ public class Boulangerie {
 
 	}
 	
-	public void Bienvenue() {
-		String texte = "Bienvenue à : " + this.nom + ".\n";
-		System.out.println(texte);
+	public StringBuilder bienvenue() {
+		presentation.append("Bienvenue à : " + this.nom + ".\n");
+		return presentation;
 	}
+	
+	//La méthodes pour dépenser/ajouter des ingrédients à la reserve
+	public void depenseIngredient(String ingredient, Double qty) {
+		this.reserve.depenseQty(ingredient, qty);
+	}
+	public void ajouterIngredient(String ingredient,Double qty) {
+		this.reserve.ajouterQty(ingredient, qty);
+	}
+	
+	//La méthodes pour dépenser/ajouter des produits à l'étalage
+	public void depenseProduit(String ingredient, Double qty) {
+		this.etalage.depenseQty(ingredient, qty);
+	}
+	public void ajoutProduit(String ingredient, Double qty) {
+		this.etalage.ajouterQty(ingredient, qty);
+	}
+
 	
 	
 //=====================================================================//
@@ -27,10 +46,8 @@ public class Boulangerie {
 //=====================================================================//
 	
 	
-	private static class Reserve{
-		HashMap<String,Integer> qtyIngredient = new HashMap<>();
-		HashMap<String,Double> prixIngredient = new HashMap<>();
-		HashMap<String,String> uniteIngredient = new HashMap<>();
+	private static class Reserve extends Stock{
+		HashMap<String,String> uniteProduit = new HashMap<>();
 		
 		public static final String BEURRE = "beurre";
 		public static final String CHOCOLAT = "chocolat";
@@ -45,55 +62,37 @@ public class Boulangerie {
 		
 		private Reserve() {
 			//Initialisation des éléments de qtyIngredient
-			qtyIngredient.put(BEURRE, 0);
-			qtyIngredient.put(CHOCOLAT, 0);
-			qtyIngredient.put(FARINE, 0);
-			qtyIngredient.put(LAIT, 0);
-			qtyIngredient.put(LEVURE, 0);
-			qtyIngredient.put(OEUF, 0);
-			qtyIngredient.put(SEL, 0);
-			qtyIngredient.put(SUCRE, 0);
+			qtyProduit.put(BEURRE, 0.0);
+			qtyProduit.put(CHOCOLAT, 0.0);
+			qtyProduit.put(FARINE, 0.0);
+			qtyProduit.put(LAIT, 0.0);
+			qtyProduit.put(LEVURE, 0.0);
+			qtyProduit.put(OEUF, 0.0);
+			qtyProduit.put(SEL, 0.0);
+			qtyProduit.put(SUCRE, 0.0);
 			
 			//Initialisation des éléments de prixIngredient
-			prixIngredient.put(BEURRE, 7.55);
-			prixIngredient.put(CHOCOLAT, 8.0);
-			prixIngredient.put(FARINE, 1.0);
-			prixIngredient.put(LAIT, 1.24);
-			prixIngredient.put(LEVURE, 8.42);
-			prixIngredient.put(OEUF, 0.34);
-			prixIngredient.put(SEL, 0.57);
-			prixIngredient.put(SUCRE, 0.85);
+			prixProduit.put(BEURRE, 7.55);
+			prixProduit.put(CHOCOLAT, 8.0);
+			prixProduit.put(FARINE, 1.0);
+			prixProduit.put(LAIT, 1.24);
+			prixProduit.put(LEVURE, 8.42);
+			prixProduit.put(OEUF, 0.34);
+			prixProduit.put(SEL, 0.57);
+			prixProduit.put(SUCRE, 0.85);
 			
 			//Initialisation des éléments de uniteIngredient
-			uniteIngredient.put(BEURRE, KILOGRAMMES);
-			uniteIngredient.put(CHOCOLAT, KILOGRAMMES);
-			uniteIngredient.put(FARINE, KILOGRAMMES);
-			uniteIngredient.put(LAIT, "litres");
-			uniteIngredient.put(LEVURE, KILOGRAMMES);
-			uniteIngredient.put(OEUF, "unites");
-			uniteIngredient.put(SEL, KILOGRAMMES);
-			uniteIngredient.put(SUCRE, KILOGRAMMES);
+			uniteProduit.put(BEURRE, KILOGRAMMES);
+			uniteProduit.put(CHOCOLAT, KILOGRAMMES);
+			uniteProduit.put(FARINE, KILOGRAMMES);
+			uniteProduit.put(LAIT, "litres");
+			uniteProduit.put(LEVURE, KILOGRAMMES);
+			uniteProduit.put(OEUF, "unites");
+			uniteProduit.put(SEL, KILOGRAMMES);
+			uniteProduit.put(SUCRE, KILOGRAMMES);
 
 		}
-		
-		//Les méthodes de qtyIngredient
-		private int getQty(String ingredient) {
-			return qtyIngredient.get(ingredient);
-		}
-		private void setQty(String ingredient, int qty) {
-			qtyIngredient.put(ingredient, qty);
-		}
-		
-		//La méthode de prixIngredient
-		private double getPrix(String ingredient) {
-			return prixIngredient.get(ingredient);
-		}
-		
-		//La méthode de uniteIngredient
-		private String getUnite(String ingredient) {
-			return uniteIngredient.get(ingredient);
-		}
-		
+
 		
 	}
 	
@@ -101,39 +100,31 @@ public class Boulangerie {
 //=====================================================================//
 // 				L'étalage est une classe interne	   		   	       //
 //=====================================================================//
-	private static class Etalage{
-		HashMap<String,Integer> qtyProduit = new HashMap<>();
-		HashMap<String,Double> prixProduit = new HashMap<>();
-		
+	private static class Etalage extends Stock{
 		public static final String BAGUETTE = "baguette";
 		public static final String CHOCOLATINE = "chocolatine";
 		public static final String CROISSANT = "croissant";
+		public static final String UNITE = "unité";
 		
 		
 		private Etalage() {
 			//Initialisation de qtyProduit
-			qtyProduit.put(BAGUETTE, 0);
-			qtyProduit.put(CHOCOLATINE, 0);
-			qtyProduit.put(CROISSANT, 0);
+			qtyProduit.put(BAGUETTE, 0.0);
+			qtyProduit.put(CHOCOLATINE, 0.0);
+			qtyProduit.put(CROISSANT, 0.0);
 			
 			//Initialisation de prixProduit
 			prixProduit.put(BAGUETTE, 1.0);
 			prixProduit.put(CHOCOLATINE, 7.55);
 			prixProduit.put(CROISSANT, 8.0);
+			
+			//Initialisation des éléments de uniteIngredient
+			uniteProduit.put(BAGUETTE, UNITE);
+			uniteProduit.put(CHOCOLATINE, UNITE);
+			uniteProduit.put(CROISSANT, UNITE);
 		}
 		
-		//Les méthodes de qtyIngredient
-		private int getQty(String produit) {
-			return qtyProduit.get(produit);
-		}
-		private void setQty(String produit, int qty) {
-			qtyProduit.put(produit, qty);
-		}
-		
-		//La méthode de prixIngredient
-		private double getPrix(String produit) {
-			return prixProduit.get(produit);
-		}
+
 	}
 	
 

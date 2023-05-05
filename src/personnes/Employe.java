@@ -2,7 +2,7 @@ package personnes;
 import batiment.*;
 import java.util.*;
 
-public class Employe {	
+public interface Employe {	
 	private Boulangerie boulangerie;
 	private String nom;
 	

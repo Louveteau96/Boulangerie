@@ -1,56 +1,146 @@
 package personnes;
 import produits.*;
 import batiment.*;
+import java.util.HashMap;
 
-public class Boulanger extends Employe{
+public class Boulanger implements Employe{
 	private Boulangerie boulangerie;
 	private String nom;
+	HashMap<String,HashMap<String,Double>> recettes = new HashMap<>();
+	HashMap<String,Double> recetteBaguette = new HashMap<>();
+	HashMap<String,Double> recetteChocolatine = new HashMap<>();
+	HashMap<String,Double> recetteCroissant = new HashMap<>();
+	HashMap<String, Integer> produitCuisine = new HashMap<>();
 	
-	public Boulanger(Boulangerie boulangerie, String nom){
-		super(boulangerie,nom);
-	};
+	public static final String BEURRE = "beurre";
+	public static final String CHOCOLAT = "chocolat";
+	public static final String FARINE = "farine";
+	public static final String LAIT = "lait";
+	public static final String LEVURE = "levure";
+	public static final String OEUF = "oeuf";
+	public static final String SEL = "sel";
+	public static final String SUCRE = "sucre";
+	
+	public static final String BAGUETTE = "baguette";
+	public static final String CHOCOLATINE = "chocolatine";
+	public static final String CROISSANT = "croissant";
 	
 
 	
-	public Recettes recetteForNmbr(int nbr) {
-		switch(nbr) {
-		case 1:
-			return Recettes.BAGUETTE;
-		case 2:
-			return Recettes.CHOCOLATINE;
-		case 3:
-			return Recettes.CROISSANT;
-		default:
-			afficher("Problème recetteForNmbr");
-			return Recettes.BAGUETTE;
-		}
+	public Boulanger(Boulangerie boulangerie, String nom){
+		this.boulangerie = boulangerie;
+		this.nom = nom;
+		//Initialisation de la recette de la baguette
+		recetteBaguette.put(FARINE, 0.1635);
+		recetteBaguette.put(LEVURE, 0.00375);
+		recetteBaguette.put(SEL, 0.00333);
+		recetteBaguette.put(SUCRE, 0.00166);
+		
+		//Initialisation de la recette de la chocolatine
+		recetteChocolatine.put(BEURRE, 0.055);
+		recetteChocolatine.put(CHOCOLAT, 0.01066);
+		recetteChocolatine.put(FARINE, 0.125);
+		recetteChocolatine.put(LAIT, 0.7);
+		recetteChocolatine.put(LEVURE, 0.025);
+		recetteChocolatine.put(OEUF, 0.5);
+		recetteChocolatine.put(SEL, 0.0025);
+		recetteChocolatine.put(SUCRE, 0.010);
+		
+		//Initialisation de la recette de la chocolatine
+		recetteCroissant.put(BEURRE, 0.042);
+		recetteCroissant.put(FARINE, 0.084);
+		recetteCroissant.put(LAIT, 0.0467);
+		recetteCroissant.put(LEVURE, 0.0034);
+		recetteCroissant.put(OEUF, 0.2);
+		recetteCroissant.put(SEL, 0.0017);
+		recetteCroissant.put(SUCRE, 0.01);
+		
+		//Mise des recettes dans la liste de recettes
+		recettes.put(BAGUETTE,recetteBaguette);
+		recettes.put(CHOCOLATINE,recetteChocolatine);
+		recettes.put(CROISSANT,recetteCroissant);
+		
+		//Initialisation des produits Cuisinés
+		produitCuisine.put(BAGUETTE, 0);
+		produitCuisine.put(CHOCOLATINE, 0);
+		produitCuisine.put(CROISSANT, 0);
+
 	}
 	
-	private void ConsommerIngredients(Recettes recettes,int qty) {
-		this.boulangerie.reserve.beurre.setQty(this.boulangerie.reserve.beurre.getQty()-recettes.getBeurreQty()* qty);
-		this.boulangerie.reserve.chocolat.setQty(this.boulangerie.reserve.beurre.getQty()-recettes.getChocolatQty()*qty);
-		this.boulangerie.reserve.farine.setQty(this.boulangerie.reserve.beurre.getQty()-recettes.getFarineQty()*qty);
-		this.boulangerie.reserve.lait.setQty(this.boulangerie.reserve.beurre.getQty()-recettes.getLaitQty()*qty);
-		this.boulangerie.reserve.levure.setQty(this.boulangerie.reserve.beurre.getQty()-recettes.getLevureQty()*qty);
-		this.boulangerie.reserve.oeuf.setQty(this.boulangerie.reserve.beurre.getQty()-recettes.getOeufQty()*qty);
-		this.boulangerie.reserve.sel.setQty(this.boulangerie.reserve.beurre.getQty()-recettes.getSelQty()*qty);
-		this.boulangerie.reserve.sucre.setQty(this.boulangerie.reserve.beurre.getQty()-recettes.getSucreQty()*qty);
+	//Le boulanger cuisine une quantité de produit
+	public void ConsommerIngredients(String recette,int qty) {
+		for (HashMap.Entry<String, Double> entry : recettes.get(recette).entrySet()) {
+			String key = entry.getKey();
+			Double val = entry.getValue()*qty;
+			this.boulangerie.depenseIngredient(key,val);
+		}
+		double qtyProduit = 0.0 + qty;
+		this.boulangerie.ajoutProduit(recette, qtyProduit);
+		produitCuisine.put(recette, produitCuisine.get(recette)+qty);
 	}
 	
-	public void FaireRecette() {
-		int NumNourriture = this.QuelleNourriture();
-		int qty = this.QuelleQtyInt();
-		Recettes recettes = this.recetteForNmbr(NumNourriture);
-		//Je sais pas pourquoi ça buggait et il veut que je mette ça sinon boulangerie=null
-		boulangerie = this.getBoulangerie(); 
-		Boolean entree = boulangerie.reserve.enoughtIngredient(recettes,qty);
-		if (entree) {
-			this.boulangerie.etalage.AddQtyForNumber(NumNourriture, qty);
-			this.ConsommerIngredients(recettes,qty);
+	//Le récap de produits cuisinés par le boulanger
+	public StringBuilder recapitulatif() {
+		StringBuilder recap = new StringBuilder();
+		recap.append("Moi "+nom+" j'ai cuisiné : \n");
+		for (HashMap.Entry<String, Integer> entry : produitCuisine.entrySet()) {
+			String key = entry.getKey();
+			Integer val = entry.getValue();
+			recap.append(key + " : " +val + "\n");
 		}
-		else {
-			afficher("Il n'y a pas assez d'ingredients. \n" + "Elles n'ont pas été réalisée \n");
-		}
+		return recap;
+	}
+	
+
+	
+
+
+	@Override
+	public void afficher(String texte) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int QuelIngredient() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int QuelleNourriture() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double QuelleQtyDouble() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int QuelleQtyInt() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void acheterIngredients() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getNom() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boulangerie getBoulangerie() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

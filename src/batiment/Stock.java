@@ -6,37 +6,37 @@ public abstract class Stock {
 	HashMap<String,Double> qtyProduit = new HashMap<>();
 	HashMap<String,Double> prixProduit = new HashMap<>();
 	HashMap<String,String> uniteProduit = new HashMap<>();
-	StringBuilder inventaire = new StringBuilder();
+	private StringBuilder inventaire = new StringBuilder();
 	
 	//Les méthodes de qtyProduit
-	public double getQty(String produit) {
+	protected double getQty(String produit) {
 		return qtyProduit.get(produit);
 	}
-	private void setQty(String produit, double qty) {
+	protected void setQty(String produit, double qty) {
 		qtyProduit.put(produit, qty);
 	}
 			
 	//La méthode de prixProduit
-	private double getPrix(String produit) {
+	protected double getPrix(String produit) {
 		return prixProduit.get(produit);
 	}
 	
 	//La méthode de uniteProduit
-	private String getUnite(String produit) {
+	protected String getUnite(String produit) {
 		return uniteProduit.get(produit);
 	}
 	
 	//La méthode d'ajout de Produit
-	public void ajouterQty(String produit, double qty) {
+	protected void ajouterQty(String produit, double qty) {
 		qtyProduit.put(produit, qtyProduit.get(produit)+qty);
 	}
 	//La méthode dépense de Produit
-	public void depenseQty(String produit, double qty) {
+	protected void depenseQty(String produit, double qty) {
 		qtyProduit.put(produit, qtyProduit.get(produit)-qty);
 	}
 	
 	//La méthode faire l'inventaire
-	private StringBuilder faireInventaire() {
+	protected StringBuilder faireInventaire() {
 		inventaire.append("Il y a : \n");
 		for (HashMap.Entry<String, Double> entry : qtyProduit.entrySet()) {
 			String key = entry.getKey();

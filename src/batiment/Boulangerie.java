@@ -23,7 +23,12 @@ public class Boulangerie {
 		return presentation;
 	}
 	
-	//La méthodes pour dépenser/ajouter des ingrédients à la reserve
+	
+	  //============================================//
+	 //Les méthodes liées à la réserve et l'étalage//
+	//============================================//
+	
+	//Dépenser/ajouter des ingrédients à la reserve
 	public void depenseIngredient(String ingredient, Double qty) {
 		this.reserve.depenseQty(ingredient, qty);
 	}
@@ -31,14 +36,48 @@ public class Boulangerie {
 		this.reserve.ajouterQty(ingredient, qty);
 	}
 	
-	//La méthodes pour dépenser/ajouter des produits à l'étalage
+	//Dépenser/ajouter des produits à l'étalage
 	public void depenseProduit(String ingredient, Double qty) {
 		this.etalage.depenseQty(ingredient, qty);
 	}
 	public void ajoutProduit(String ingredient, Double qty) {
 		this.etalage.ajouterQty(ingredient, qty);
 	}
+	
+	//Verifie que le produit existe
+	public boolean ingredientExiste(String ingredient) {
+		return reserve.prixProduit.containsKey(ingredient);
+	}
+	
+	
+	  //==============================//
+	 //Les méthodes liées à la caisse//
+	//==============================//
+	
+	public void gagnerArgent(double gain) {
+		gain = caisse.getArgent() + gain;
+		caisse.setArgent(gain);
+	}
+	
+	public void perdreArgent(double perte) {
+		perte = caisse.getArgent() - perte;
+		caisse.setArgent(perte);
+	}
+	
+	public boolean enoughtFunds(double perte) {
+		return caisse.getArgent()-perte >=0;
+	}
 
+	  //===========================//
+	 //Les méthodes liées aux prix//
+	//===========================//
+	public double prixIngredient(String ingredient) {
+		return reserve.getPrix(ingredient);
+	}
+	
+	public double prixProduit(String produit) {
+		return etalage.getPrix(produit);
+	}
 	
 	
 //=====================================================================//
@@ -136,7 +175,7 @@ public class Boulangerie {
 	private static class Caisse{
 		private double argent;
 		
-		
+		//Le constructeur
 		private Caisse() {
 			this.argent=0;
 		}
@@ -146,17 +185,10 @@ public class Boulangerie {
 			return this.argent;
 		}
 		
-		private void gagnerArgent(double gain) {
-			this.argent+=gain;
+		private void setArgent(double argent) {
+			this.argent=argent;
 		}
 		
-		private void perdreArgent(double perte) {
-			this.argent-=perte;
-		}
-		
-		private boolean enoughtFunds(double perte) {
-			return this.argent-perte >=0;
-		}
 	}
 
 }

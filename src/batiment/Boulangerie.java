@@ -19,7 +19,7 @@ public class Boulangerie {
 	}
 	
 	public StringBuilder bienvenue() {
-		presentation.append("Bienvenue à : " + this.nom + ".\n");
+		presentation.append("Bienvenue à : " + this.nom);
 		return presentation;
 	}
 	

@@ -21,17 +21,19 @@ import javax.swing.ImageIcon;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Color;
 import javax.swing.UIManager;
+import java.awt.SystemColor;
 
 public class JFrameBoulangerie extends JFrame {
 
 	private JPanel contentPane;
-	private JButton btnCaissier;
-	private JButton btnBoulanger;
 	
 	//Tout ce qui est spécifique à la boulangerie
 	private DialogueBoulangerie dialogueBoulangerie;
-	private JLabel lblSelectionnez;
+	private JPanel panel;
+	private JButton btnCaissier;
+	private JButton btnBoulanger;
 	private JLabel lblBienvenue;
+	private JLabel lblSelectionnez;
 
 	/**
 	 * Launch the application.
@@ -59,49 +61,36 @@ public class JFrameBoulangerie extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		panel = new JPanel();
+		panel.setBounds(0, 0, 1280, 985);
+		contentPane.add(panel);
+		panel.setLayout(null);
 		
 		btnCaissier = new JButton("Caissier");
-		btnCaissier.setBounds(15, 619, 549, 271);
-		btnCaissier.setBackground(UIManager.getColor("Button.background"));
-		btnCaissier.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				do_btnCaissier_actionPerformed(e);
-			}
-		});
+		btnCaissier.setBounds(30, 619, 549, 271);
 		btnCaissier.setFont(new Font("Arial", Font.PLAIN, 24));
+		btnCaissier.setBackground(UIManager.getColor("Button.background"));
+		panel.add(btnCaissier);
 		
 		btnBoulanger = new JButton("Boulanger");
-		btnBoulanger.setBackground(UIManager.getColor("Button.background"));
-		btnBoulanger.setBounds(631, 619, 610, 271);
-		btnBoulanger.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				do_btnBoulanger_actionPerformed(e);
-			}
-		});
+		btnBoulanger.setBounds(680, 619, 549, 271);
 		btnBoulanger.setFont(new Font("Arial", Font.PLAIN, 24));
-		
-		lblSelectionnez = new JLabel("Sélectionnez votre métier");
-		lblSelectionnez.setBounds(316, 318, 660, 108);
-		lblSelectionnez.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSelectionnez.setFont(new Font("Arial", Font.BOLD, 50));
+		btnBoulanger.setBackground(UIManager.getColor("Button.background"));
+		panel.add(btnBoulanger);
 		
 		lblBienvenue = new JLabel("Bienvenue à : La Boulangerie");
-		lblBienvenue.setBounds(278, 83, 757, 129);
+		lblBienvenue.setBounds(272, 184, 714, 59);
 		lblBienvenue.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBienvenue.setFont(new Font("Arial", Font.BOLD, 50));
-		contentPane.setLayout(null);
-		contentPane.add(btnCaissier);
-		contentPane.add(btnBoulanger);
-		contentPane.add(lblBienvenue);
-		contentPane.add(lblSelectionnez);
-	}
-	
-	//Bouton Caissier cliqué
-	protected void do_btnCaissier_actionPerformed(ActionEvent e) {
-	}
-	
-	//Bouton Boulanger cliqué
-	protected void do_btnBoulanger_actionPerformed(ActionEvent e) {
+		panel.add(lblBienvenue);
+		
+		lblSelectionnez = new JLabel("Sélectionnez votre métier");
+		lblSelectionnez.setBounds(325, 320, 606, 59);
+		lblSelectionnez.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSelectionnez.setFont(new Font("Arial", Font.BOLD, 50));
+		panel.add(lblSelectionnez);
 	}
 	
 	//Initialisation

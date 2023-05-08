@@ -6,4 +6,5 @@
  *
  */
 module Boulangerie {
+	requires java.desktop;
 }

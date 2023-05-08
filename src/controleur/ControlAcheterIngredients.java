@@ -20,5 +20,5 @@ public class ControlAcheterIngredients {
 		ingredient = ingredient.toLowerCase();
 		return boulangerie.ingredientExiste(ingredient);
 	}
-
+	
 }

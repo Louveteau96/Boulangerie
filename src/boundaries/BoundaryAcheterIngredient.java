@@ -1,7 +1,9 @@
 package boundaries;
 
 import java.util.Scanner;
+
 import controleur.ControlAcheterIngredients;
+
 
 public class BoundaryAcheterIngredient {
 	private ControlAcheterIngredients controlAcheterIngredient;
@@ -21,7 +23,6 @@ public class BoundaryAcheterIngredient {
 			Double qty = scan.nextDouble();
 			
 			if(controlAcheterIngredient.enoughtFunds(ingredient, qty)) {
-				/TODO
 			}
 		}else {
 			message.setLength(0);
@@ -30,5 +31,6 @@ public class BoundaryAcheterIngredient {
 		}
 		
 	}
+
 
 }

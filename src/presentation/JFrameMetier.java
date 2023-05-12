@@ -24,7 +24,7 @@ import javax.swing.UIManager;
 import java.awt.SystemColor;
 import javax.swing.JTabbedPane;
 
-public class JFrameBoulangerie extends JFrame {
+public class JFrameMetier extends JFrame {
 
 	private JPanel contentPane;
 	
@@ -35,29 +35,12 @@ public class JFrameBoulangerie extends JFrame {
 	private JButton btnBoulanger;
 	private JLabel lblBienvenue;
 	private JLabel lblSelectionnez;
-	private JTabbedPane tabbedPaneCaissier;
-	private JTabbedPane tabbedPaneBoulanger;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JFrameBoulangerie frame = new JFrameBoulangerie();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
-	public JFrameBoulangerie() {
+	public JFrameMetier() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 1024);
 		contentPane = new JPanel();
@@ -83,6 +66,11 @@ public class JFrameBoulangerie extends JFrame {
 		panelChoixMetier.add(btnCaissier);
 		
 		btnBoulanger = new JButton("Boulanger");
+		btnBoulanger.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnBoulanger_actionPerformed(e);
+			}
+		});
 		btnBoulanger.setBounds(680, 619, 549, 271);
 		btnBoulanger.setFont(new Font("Arial", Font.PLAIN, 24));
 		btnBoulanger.setBackground(UIManager.getColor("Button.background"));
@@ -99,14 +87,6 @@ public class JFrameBoulangerie extends JFrame {
 		lblSelectionnez.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSelectionnez.setFont(new Font("Arial", Font.BOLD, 50));
 		panelChoixMetier.add(lblSelectionnez);
-		
-		tabbedPaneCaissier = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPaneCaissier.setBounds(0, 0, 1280, 985);
-		contentPane.add(tabbedPaneCaissier);
-		
-		tabbedPaneBoulanger = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPaneBoulanger.setBounds(0, 0, 1280, 985);
-		contentPane.add(tabbedPaneBoulanger);
 	}
 	
 	//Initialisation
@@ -129,6 +109,10 @@ public class JFrameBoulangerie extends JFrame {
 		lblBienvenue.setText(nom);
 	}
 	protected void do_btnCaissier_actionPerformed(ActionEvent e) {
-		
+		dialogueBoulangerie.changementJFrameCaissier();
+	}
+	
+	protected void do_btnBoulanger_actionPerformed(ActionEvent e) {
+		dialogueBoulangerie.changementJFrameBoulanger();
 	}
 }

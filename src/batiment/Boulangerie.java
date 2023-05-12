@@ -14,7 +14,7 @@ public class Boulangerie {
 		this.reserve = new Reserve();
 		this.etalage = new Etalage();
 		this.caisse = new Caisse();
-		this.nom=" La Boulangerie";
+		this.nom= nom;
 
 	}
 	

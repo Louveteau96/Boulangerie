@@ -1,20 +1,29 @@
 package personnes;
+
 import batiment.*;
-import produits.*;
+import boundaries.BoundaryVente;
+import controleur.ControlVente;
+import personnes.*;
 
 import java.util.*;
 
-public class Caissier extends Employe{
-	public Boulangerie boulangerie;
+public class Caissier implements Employe{
+	private Boulangerie boulangerie;
 	private String nom;
+	private ControlVente controlVente = new ControlVente(boulangerie);
+	private BoundaryVente boundaryVente = new BoundaryVente(controlVente);
 	
 	public Caissier(Boulangerie boulangerie,String nom){
-		super(boulangerie, nom);
+		this.boulangerie = boulangerie;
+		this.nom = nom;
 	};
 	
+	public void Vendre() {
+		
+	}
 	
-	
-	public void RendreMonnaie(double amnt, double prix) {
+	public String RendreMonnaie(double amnt, double prix) {
+		boundaryVente.
 			if (prix < amnt) {
 				double rendu = amnt-prix;
 				this.boulangerie.caisse.perdeArgent(rendu);
@@ -111,7 +120,24 @@ public class Caissier extends Employe{
 		
 		
 	}
+
+
+
+	@Override
+	public void acheterIngredients(String ingredient, Double qty) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String presentation() {
+		return "Bonjour je suis " + nom + " je suis caissier";
+	}
 	
+	@Override
+	public String metier() {
+		return "caissier";
+	}
 	
 
 

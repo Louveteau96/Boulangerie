@@ -85,7 +85,12 @@ public class Boulanger implements Employe{
 	//Le boulanger se présente
 	@Override
 	public String presentation() {
-		return "Bonjour je suis " + nom;
+		return "Bonjour je suis " + nom + " je suis boulanger";
+	}
+	
+	//Métier du boulanger
+	public String metier() {
+		return "boulanger";
 	}
 
 }

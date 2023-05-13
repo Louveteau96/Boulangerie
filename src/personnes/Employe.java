@@ -21,5 +21,5 @@ public interface Employe {
 	
 	public String presentation();
 
-	
+	public String metier();
 }

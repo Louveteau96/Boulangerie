@@ -1,12 +1,14 @@
 package batiment;
 
 import java.util.HashMap;
+import personnes.*;
 
 public class Boulangerie {
 	private String nom;
 	private Reserve reserve;
 	private Caisse caisse;
 	private Etalage etalage;
+	private HashMap<String,Employe> employes = new HashMap<String,Employe>();
 	
 	StringBuilder presentation = new StringBuilder();
 	
@@ -49,6 +51,21 @@ public class Boulangerie {
 		return reserve.prixProduit.containsKey(ingredient);
 	}
 	
+	//Donne la map des quantités d'ingrédients
+	public HashMap<String,Double> getStockMap() {
+		return this.reserve.qtyProduit;
+	}
+	
+	//Donne la map des unites des ingrédients
+	public HashMap<String,String> getStockUnite(){
+		return this.reserve.uniteProduit;
+	}
+	
+	//Donne la map des quantités de produit
+	public HashMap<String,Double> getEtalageMap() {
+		return this.etalage.qtyProduit;
+	}
+	
 	
 	  //==============================//
 	 //Les méthodes liées à la caisse//
@@ -79,6 +96,25 @@ public class Boulangerie {
 		return etalage.getPrix(produit);
 	}
 	
+	  //===============================//
+	 //Les méthodes liées aux employés//
+	//===============================//
+	public Employe getEmploye(String nom) {
+		return employes.get(nom);
+	}
+	
+	public boolean isEmploye(String nom) {
+		return employes.containsKey(nom);
+	}
+	
+	public void addEmploye(Employe employe,String nom) {
+		employes.put(nom, employe);
+	}
+	
+	public void removeEmploye(String nom) {
+		employes.remove(nom);
+	}
+
 	
 //=====================================================================//
 //					La reserve est une classe interne			   	   //

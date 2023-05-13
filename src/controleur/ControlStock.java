@@ -11,8 +11,17 @@ public class ControlStock {
 		this.boulangerie = boulangerie;
 	}
 
-//	public HashMap getStockMap() {
-//		return boulangerie.;
-//	}
+	public HashMap<String,Double> getStockMap() {
+		return boulangerie.getStockMap();
+	}
+	
+	public HashMap<String,String> getStockUnite() {
+		return boulangerie.getStockUnite();
+	}
+	
+	public HashMap<String,Double> getEtalageMap() {
+		return boulangerie.getEtalageMap();
+	}
+
 
 }

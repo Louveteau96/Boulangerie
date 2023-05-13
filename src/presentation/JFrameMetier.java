@@ -58,8 +58,8 @@ public class JFrameMetier extends JFrame {
 		contentPane.add(panelChoixMetier);
 		panelChoixMetier.setLayout(null);
 		
-		lblBienvenue = new JLabel("Bienvenue à : La Boulangerie");
-		lblBienvenue.setBounds(272, 184, 714, 59);
+		lblBienvenue = new JLabel("");
+		lblBienvenue.setBounds(142, 184, 993, 59);
 		lblBienvenue.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBienvenue.setFont(new Font("Arial", Font.BOLD, 50));
 		panelChoixMetier.add(lblBienvenue);
@@ -90,9 +90,11 @@ public class JFrameMetier extends JFrame {
 	//Initialisation
 	public void initPresentation(String nom) {
 		lblBienvenue.setEnabled(true);
+		lblBienvenue.setText("");
 		lblBienvenue.setText(nom);
 		lblSelectionnez.setEnabled(true);
 		btnValider.setEnabled(true);
+		txtEntrezVotreNom.setText("");
 	}
 	
 	

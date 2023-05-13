@@ -19,6 +19,8 @@ import javax.swing.JButton;
 import java.awt.SystemColor;
 import javax.swing.border.LineBorder;
 import javax.swing.border.BevelBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class JFrameBoulanger extends JFrame {
 
@@ -32,6 +34,7 @@ public class JFrameBoulanger extends JFrame {
 	private JLabel lblProduits;
 	private JButton btnAcheterIngredient;
 	private JButton btnCuisiner;
+	private JButton btnDeconnexion;
 
 
 
@@ -139,42 +142,39 @@ public class JFrameBoulanger extends JFrame {
 		btnCuisiner.setFont(new Font("Arial", Font.PLAIN, 50));
 		btnCuisiner.setBounds(746, 685, 508, 227);
 		panel.add(btnCuisiner);
+		
+		btnDeconnexion = new JButton("Deconnexion");
+		btnDeconnexion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnDeconnexion_actionPerformed(e);
+			}
+		});
+		btnDeconnexion.setFont(new Font("Arial", Font.PLAIN, 30));
+		btnDeconnexion.setBounds(879, 22, 259, 60);
+		panel.add(btnDeconnexion);
+	}
+	
+	//Initialisation de JFrameBoulanger
+	public void initialisation() {
+		stockUpdate();
+		etalageUpdate();
 	}
 	
 	//Mise des éléments de stock//
-	public void stockUpdate(HashMap<String,Double> stockMap,HashMap<String,String> uniteMap) {
-		int i =0;
-		tableStock.getModel();
-		for (HashMap.Entry<String, Double> entry : stockMap.entrySet()) {
-			String key = entry.getKey();
-			Double val = entry.getValue();
-			String unite = uniteMap.get(key);
-			tableStock.setValueAt(key, i, 0);
-			tableStock.setValueAt(val, i, 1);
-			tableStock.setValueAt(unite, i, 2);
-			i++;
-			
-			
+	public void stockUpdate() {
+		dialogueBoulangerie.stockUpdate(tableStock);
 		}
-	}
 	
 	//Mise des éléments de etalage//
-		public void etalageUpdate(HashMap<String,Double> stock) {
-			int i =0;
-			tableProduit.getModel();
-			for (HashMap.Entry<String, Double> entry : stock.entrySet()) {
-				String key = entry.getKey();
-				Double val = entry.getValue();
-				tableProduit.setValueAt(key, i, 0);
-				tableProduit.setValueAt(val, i, 1);
-				i++;
-				
-				
-			}
+		public void etalageUpdate() {
+			dialogueBoulangerie.productDoneUpdate(tableProduit);
 		}
 	
 	//Record reference to Dialogue
 	public void setDialogue(DialogueBoulangerie dialogueBoulangerie) {
 		this.dialogueBoulangerie = dialogueBoulangerie;
+	}
+	protected void do_btnDeconnexion_actionPerformed(ActionEvent e) {
+		dialogueBoulangerie.deconnexion("boulanger");
 	}
 }

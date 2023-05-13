@@ -1,7 +1,8 @@
 package dialogue;
 
-import java.awt.EventQueue;
 import java.util.HashMap;
+
+import javax.swing.JTable;
 
 import batiment.Boulangerie;
 import boundaries.*;
@@ -10,6 +11,7 @@ import presentation.*;
 
 public class DialogueBoulangerie {
 	
+	private String employe;
 	private Boulangerie boulangerie = new Boulangerie("La Boulangerie");
 	private ControlPresentation controleurPresentation = new ControlPresentation(boulangerie);
 	private ControlStock controlStock = new ControlStock(boulangerie);
@@ -45,12 +47,14 @@ public class DialogueBoulangerie {
 	public void verifierNom(String nom) {
 		if(boundariePresentation.verifierValider(nom)) {
 			changementJFrameMetier(nom);
+			employe = nom;
 		}else {
 			presentationMetier.errorName(nom);
 		}
 	}
 	
 	public void changementJFrameMetier(String nom) {
+		employe = nom;
 		String metier = boundaryGestionEmploye.getMetier(nom);
 		if(metier.equals("caissier")) {
 			changementJFrameCaissier();
@@ -67,11 +71,7 @@ public class DialogueBoulangerie {
 		presentationMetier.setVisible(false);
 		presentationBoulanger.setDialogue(this);
 		presentationBoulanger.setVisible(true);
-		HashMap<String,Double> stock = controlStock.getStockMap();
-		HashMap<String,String> unite = controlStock.getStockUnite();
-		HashMap<String,Double> etalage = controlStock.getEtalageMap();
-		presentationBoulanger.stockUpdate(stock,unite);
-		presentationBoulanger.etalageUpdate(etalage);
+		presentationBoulanger.initialisation();
 	
 	}
 
@@ -89,11 +89,45 @@ public class DialogueBoulangerie {
 	 //Changement JFrame Déconnexion //
 	//==============================//
 	public void deconnexion(String metier) {
-		if(metier.toLowerCase()=="caissier") {
+		if(metier.equalsIgnoreCase("caissier")) {
 			presentationCaissier.setVisible(false);
+		}else {
+			presentationBoulanger.setVisible(false);
 		}
+		presentationMetier.setVisible(true);
+		presentationMetier.initPresentation(boundariePresentation.bienvenue());
 	}
 	
 	
+	//Mise à jour des infos du stock
+	public void stockUpdate(JTable tableStock) {
+		int i =0;
+		HashMap<String,Double> stockMap = controlStock.getStockMap();
+		HashMap<String,String> uniteMap = controlStock.getStockUnite();
+		tableStock.getModel();
+		for (HashMap.Entry<String, Double> entry : stockMap.entrySet()) {
+			String key = entry.getKey();
+			Double val = entry.getValue();
+			String unite = uniteMap.get(key);
+			tableStock.setValueAt(key, i, 0);
+			tableStock.setValueAt(val, i, 1);
+			tableStock.setValueAt(unite, i, 2);
+			i++;
+		}
+	}
+	
+	//Mise à jour des infos des produits cuisinés
+	public void productDoneUpdate(JTable tableProduit) {
+		int i =0;
+		HashMap<String,Integer> produitMap = controlStock.getProductDone(employe);
+		tableProduit.getModel();
+		for (HashMap.Entry<String, Integer> entry : produitMap.entrySet()) {
+			String key = entry.getKey();
+			Integer val = entry.getValue();
+			tableProduit.setValueAt(key, i, 0);
+			tableProduit.setValueAt(val, i, 1);
+			i++;
+		}
+	}
 
 }

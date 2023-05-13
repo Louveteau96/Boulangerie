@@ -1,5 +1,7 @@
 package personnes;
 
+import java.util.HashMap;
+
 public interface Employe {	
 	public static final String BEURRE = "beurre";
 	public static final String CHOCOLAT = "chocolat";
@@ -22,4 +24,6 @@ public interface Employe {
 	public String presentation();
 
 	public String metier();
+	
+	public HashMap<String, Integer> getProductDone();
 }

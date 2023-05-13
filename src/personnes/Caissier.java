@@ -138,6 +138,11 @@ public class Caissier implements Employe{
 	public String metier() {
 		return "caissier";
 	}
+
+	@Override
+	public HashMap<String, Integer> getProductDone() {
+		return null;
+	}
 	
 
 

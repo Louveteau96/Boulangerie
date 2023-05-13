@@ -2,6 +2,7 @@ package controleur;
 
 import java.util.HashMap;
 
+import personnes.*;
 import batiment.Boulangerie;
 
 public class ControlStock {
@@ -21,6 +22,11 @@ public class ControlStock {
 	
 	public HashMap<String,Double> getEtalageMap() {
 		return boulangerie.getEtalageMap();
+	}
+	
+	public HashMap<String,Integer> getProductDone(String nom){
+		System.out.println(nom);
+		return boulangerie.getEmploye(nom).getProductDone();
 	}
 
 

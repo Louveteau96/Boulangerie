@@ -82,6 +82,11 @@ public class Boulanger implements Employe{
 		
 	}
 	
+	//Le boulanger donne sa map de produits cuisinés
+	public HashMap<String, Integer> getProductDone(){
+		return this.produitCuisine;
+	}
+	
 	//Le boulanger se présente
 	@Override
 	public String presentation() {

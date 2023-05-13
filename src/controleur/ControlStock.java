@@ -25,7 +25,6 @@ public class ControlStock {
 	}
 	
 	public HashMap<String,Integer> getProductDone(String nom){
-		System.out.println(nom);
 		return boulangerie.getEmploye(nom).getProductDone();
 	}
 

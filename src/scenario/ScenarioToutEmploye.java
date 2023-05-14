@@ -9,12 +9,11 @@ import controleur.*;
 
 public class ScenarioToutEmploye {
 	private Boulangerie boulangerie = new Boulangerie("La Boulangerie");
-	private DialogueBoulangerie dialogueBoulangerie = new DialogueBoulangerie();
-	private ControlGestionEmploye controlGestionEmploye = new ControlGestionEmploye(boulangerie);
-	private BoundaryGestionEmploye boundaryGestionEmploye = new BoundaryGestionEmploye(controlGestionEmploye);
+	private DialogueBoulangerie dialogueBoulangerie = new DialogueBoulangerie(boulangerie);
 	
 	
 	public void initDialog() {
+		boulangerie.gagnerArgent(200);
 		this.dialogueBoulangerie.initDialog();
 	}
 	

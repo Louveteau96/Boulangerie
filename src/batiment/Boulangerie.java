@@ -83,7 +83,12 @@ public class Boulangerie {
 	}
 	
 	public boolean enoughtFunds(double perte) {
+		System.out.println(afficherArgent());
 		return caisse.getArgent()-perte >=0;
+	}
+	
+	public double afficherArgent() {
+		return caisse.getArgent();
 	}
 
 	  //===========================//

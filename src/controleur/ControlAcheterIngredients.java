@@ -21,4 +21,16 @@ public class ControlAcheterIngredients {
 		return boulangerie.ingredientExiste(ingredient);
 	}
 	
+	//
+	public void obtenirIngredients(String ingredient, Double qty) {
+		boulangerie.ajouterIngredient(ingredient, qty);
+	}
+	
+	//
+	public void depenserArgent(String ingredient, Double qty) {
+		Double perte = boulangerie.prixIngredient(ingredient)*qty;
+		boulangerie.perdreArgent(perte);
+		
+	}
+	
 }

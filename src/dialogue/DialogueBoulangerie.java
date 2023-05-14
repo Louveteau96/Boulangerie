@@ -15,12 +15,14 @@ import presentation.*;
 public class DialogueBoulangerie {
 	
 	private String employe;
-	private Boulangerie boulangerie = new Boulangerie("La Boulangerie");
-	private ControlPresentation controleurPresentation = new ControlPresentation(boulangerie);
-	private ControlStock controlStock = new ControlStock(boulangerie);
-	private ControlGestionEmploye controlGestionEmploye = new ControlGestionEmploye(boulangerie);
-	private BoundaryGestionEmploye boundaryGestionEmploye = new BoundaryGestionEmploye(controlGestionEmploye);
-	private BoundaryPresentation boundariePresentation = new BoundaryPresentation(controleurPresentation);
+	private Boulangerie boulangerie;
+	private ControlPresentation controleurPresentation;
+	private ControlStock controlStock;
+	private ControlGestionEmploye controlGestionEmploye;
+	private ControlAcheterIngredients controlAcheterIngredients;
+	private BoundaryGestionEmploye boundaryGestionEmploye;
+	private BoundaryPresentation boundaryPresentation;
+	private BoundaryAcheterIngredient boundaryAcheterIngredient;
 	
 	//Les JFrame
 	private JFrameMetier presentationMetier = new JFrameMetier();
@@ -28,6 +30,18 @@ public class DialogueBoulangerie {
 	private JFrameBoulanger presentationBoulanger = new JFrameBoulanger();
 	private JFrameAcheterIngredients presentationAcheterIngredients = new JFrameAcheterIngredients();
 	
+	
+	//Constructeur
+	public DialogueBoulangerie(Boulangerie boulangerie) {
+		this.boulangerie=boulangerie;
+		controleurPresentation = new ControlPresentation(boulangerie);
+		controlStock = new ControlStock(boulangerie);
+		controlGestionEmploye = new ControlGestionEmploye(boulangerie);
+		controlAcheterIngredients = new ControlAcheterIngredients(boulangerie);
+		boundaryGestionEmploye = new BoundaryGestionEmploye(controlGestionEmploye);
+		boundaryPresentation = new BoundaryPresentation(controleurPresentation);
+		boundaryAcheterIngredient = new BoundaryAcheterIngredient(controlAcheterIngredients);
+	}
 	
 	public void initDialog() {
 		//Initialisation des employés
@@ -38,18 +52,19 @@ public class DialogueBoulangerie {
 		//Associate dialogue to presentation
 		presentationMetier.setDialogue(this);
 		//Initialize and enable presentation Frame
-		String bienvenue = boundariePresentation.bienvenue();
+		String bienvenue = boundaryPresentation.bienvenue();
 		presentationMetier.initPresentation(bienvenue);
 		presentationMetier.setVisible(true);
 		presentationBoulanger.setVisible(false);
 		presentationCaissier.setVisible(false);
+		System.out.println(boulangerie.afficherArgent());
 	}
 	
 	  //========================//
 	 //Changement JFrame Métier//
 	//========================//
 	public void verifierNom(String nom) {
-		if(boundariePresentation.verifierValider(nom)) {
+		if(boundaryPresentation.verifierValider(nom)) {
 			changementJFrameMetier(nom);
 			employe = nom;
 		}else {
@@ -96,7 +111,7 @@ public class DialogueBoulangerie {
 		presentationCaissier.setVisible(false);
 		presentationBoulanger.setVisible(false);
 		presentationMetier.setVisible(true);
-		presentationMetier.initPresentation(boundariePresentation.bienvenue());
+		presentationMetier.initPresentation(boundaryPresentation.bienvenue());
 	}
 	
 	  //==================//
@@ -167,6 +182,16 @@ public class DialogueBoulangerie {
 		}
 		combobox.setModel(new DefaultComboBoxModel(newComboBox));
 		return tableauUnite;
+	}
+	
+	//Acheter les ingrédients
+	public void acheterIngredients(String ingredient, Double qty) {
+		int error = boundaryAcheterIngredient.acheterIngredients(ingredient,qty);
+		boolean valider = presentationAcheterIngredients.errorDisplay(error);
+		if(valider) {
+			boundaryAcheterIngredient.obtentionIngredients(ingredient,qty);
+			presentationAcheterIngredients.jtableStockUpdate();
+		}
 	}
 
 }

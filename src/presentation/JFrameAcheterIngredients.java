@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
@@ -129,6 +131,11 @@ public class JFrameAcheterIngredients extends JFrame {
 		textField.setColumns(10);
 		
 		btnValider = new JButton("Valider");
+		btnValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnValider_actionPerformed(e);
+			}
+		});
 		btnValider.setFont(new Font("Arial", Font.PLAIN, 30));
 		btnValider.setBounds(850, 331, 184, 52);
 		panel.add(btnValider);
@@ -166,6 +173,11 @@ public class JFrameAcheterIngredients extends JFrame {
 		int index = comboBoxIngredient.getSelectedIndex();
 		lblUnite.setText(tableauUnite[index]);
 	}
+	protected void do_btnValider_actionPerformed(ActionEvent e) {
+		String ingredient = comboBoxIngredient.getItemAt(comboBoxIngredient.getSelectedIndex()).toString();
+		Double qty = Double.valueOf(textField.getText());
+		dialogueBoulangerie.acheterIngredients(ingredient,qty);
+	}
 	
 	//Vérifie qu'il y a des chiffres pour valider
 	protected void changementTextField() {
@@ -186,4 +198,32 @@ public class JFrameAcheterIngredients extends JFrame {
 	         return false;
 	      }
 	}
+	
+	//Affiche les différents types d'erreur
+	public boolean errorDisplay(int numError) {
+		switch (numError) {
+		case 0: {
+			JOptionPane.showMessageDialog(this,"L'ingrédient demandé n'existe pas","Erreur d'ingrédients",JOptionPane.ERROR_MESSAGE);
+			return false;
+		}case 1: {
+			JOptionPane.showMessageDialog(this,"La boulangerie n'a pas assez de fonds","Probleme de fonds",JOptionPane.ERROR_MESSAGE);
+			return false;
+		}case 2:{
+			int retour = JOptionPane.showConfirmDialog(this,"Etes vous sur ?","Validation",JOptionPane.OK_CANCEL_OPTION);
+			if(retour==0) {
+				return true;
+			}else {
+				return false;
+			}
+		}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + numError);
+		}
+	}
+	
+	//JTable stock update
+	public void jtableStockUpdate() {
+		dialogueBoulangerie.stockUpdate(tableStock);
+	}
+	
 }

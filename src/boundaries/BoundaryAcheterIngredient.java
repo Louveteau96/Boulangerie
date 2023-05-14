@@ -1,5 +1,6 @@
 package boundaries;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 import controleur.ControlAcheterIngredients;
@@ -13,23 +14,22 @@ public class BoundaryAcheterIngredient {
 		this.controlAcheterIngredient = controlAcheterIngredient;
 	}
 	
-	public void acheterIngredients() {
-		StringBuilder message = new StringBuilder();
-		message.append("Que voulez-vous acheter ?");
-		System.out.println(message);
-		String ingredient = scan.nextLine();
-		
+	public int acheterIngredients(String ingredient, Double qty) {
 		if(controlAcheterIngredient.ingredientExist(ingredient)) {
-			Double qty = scan.nextDouble();
-			
 			if(controlAcheterIngredient.enoughtFunds(ingredient, qty)) {
+				return 2;
+			}else {
+				return 1;
 			}
 		}else {
-			message.setLength(0);
-			message.append("Désolé mais ce produit n'existe pas");
-			System.out.println(message);
+			return 0;
 		}
 		
+	}
+	
+	public void obtentionIngredients(String ingredient, double qty) {
+		controlAcheterIngredient.obtenirIngredients(ingredient, qty);
+		controlAcheterIngredient.depenserArgent(ingredient, qty);
 	}
 
 

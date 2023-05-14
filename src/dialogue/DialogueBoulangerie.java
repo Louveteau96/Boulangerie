@@ -2,6 +2,9 @@ package dialogue;
 
 import java.util.HashMap;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JTable;
 
 import batiment.Boulangerie;
@@ -23,6 +26,7 @@ public class DialogueBoulangerie {
 	private JFrameMetier presentationMetier = new JFrameMetier();
 	private JFrameCaissier presentationCaissier = new JFrameCaissier();
 	private JFrameBoulanger presentationBoulanger = new JFrameBoulanger();
+	private JFrameAcheterIngredients presentationAcheterIngredients = new JFrameAcheterIngredients();
 	
 	
 	public void initDialog() {
@@ -88,16 +92,34 @@ public class DialogueBoulangerie {
 	  //==============================//
 	 //Changement JFrame Déconnexion //
 	//==============================//
-	public void deconnexion(String metier) {
-		if(metier.equalsIgnoreCase("caissier")) {
-			presentationCaissier.setVisible(false);
-		}else {
-			presentationBoulanger.setVisible(false);
-		}
+	public void deconnexion() {
+		presentationCaissier.setVisible(false);
+		presentationBoulanger.setVisible(false);
 		presentationMetier.setVisible(true);
 		presentationMetier.initPresentation(boundariePresentation.bienvenue());
 	}
 	
+	  //==================//
+	 //Changement Retour //
+	//==================//
+	public void retour(JFrame jframe) {
+		jframe.setVisible(false);
+		if(boundaryGestionEmploye.getMetier(employe).equalsIgnoreCase("caissier")) {
+			changementJFrameCaissier();
+		}else {
+			changementJFrameBoulanger();
+		}
+	}
+
+	  //======================================//
+	 //Changement JFrame Acheter Ingredients //
+	//======================================//
+	public void changementJFrameAcheterIngredients() {
+		presentationCaissier.setVisible(false);
+		presentationBoulanger.setVisible(false);
+		presentationAcheterIngredients.setVisible(true);
+		presentationAcheterIngredients.initialisation(this);
+	}
 	
 	//Mise à jour des infos du stock
 	public void stockUpdate(JTable tableStock) {
@@ -128,6 +150,23 @@ public class DialogueBoulangerie {
 			tableProduit.setValueAt(val, i, 1);
 			i++;
 		}
+	}
+	
+	//Mise à jour des ingredients d'un combobox d'ingrédients
+	public String[] comboBoxIngredientsUpdate(JComboBox combobox) {
+		int i =0;
+		HashMap<String,String> stockMap = controlStock.getStockUnite();
+		String[] newComboBox = new String[stockMap.size()];
+		String[] tableauUnite = new String[stockMap.size()];
+		for (HashMap.Entry<String, String> entry : stockMap.entrySet()) {
+			String key = entry.getKey();
+			String value = entry.getValue();
+			tableauUnite[i]=value;
+			newComboBox[i] = key;
+			i++;
+		}
+		combobox.setModel(new DefaultComboBoxModel(newComboBox));
+		return tableauUnite;
 	}
 
 }

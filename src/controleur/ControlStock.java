@@ -25,6 +25,7 @@ public class ControlStock {
 	}
 	
 	public HashMap<String,Integer> getProductDone(String nom){
+		nom=nom.toLowerCase();
 		return boulangerie.getEmploye(nom).getProductDone();
 	}
 

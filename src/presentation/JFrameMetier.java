@@ -1,32 +1,21 @@
 package presentation;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import batiment.Boulangerie;
 import dialogue.DialogueBoulangerie;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.SwingConstants;
-import javax.swing.ImageIcon;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.Color;
-import javax.swing.UIManager;
-import java.awt.SystemColor;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-import javax.swing.DropMode;
-
 public class JFrameMetier extends JFrame {
 
 	private JPanel contentPane;
@@ -71,6 +60,17 @@ public class JFrameMetier extends JFrame {
 		panelChoixMetier.add(lblSelectionnez);
 		
 		txtEntrezVotreNom = new JTextField();
+		txtEntrezVotreNom.getDocument().addDocumentListener(new DocumentListener() {
+			public void insertUpdate(DocumentEvent e) {
+				changementTextField();
+			}
+			public void removeUpdate(DocumentEvent e) {
+				changementTextField();
+			}
+			public void changedUpdate(DocumentEvent e) {
+				changementTextField();
+			}
+		});
 		txtEntrezVotreNom.setFont(new Font("Arial", Font.PLAIN, 20));
 		txtEntrezVotreNom.setBounds(371, 450, 514, 69);
 		panelChoixMetier.add(txtEntrezVotreNom);
@@ -93,7 +93,7 @@ public class JFrameMetier extends JFrame {
 		lblBienvenue.setText("");
 		lblBienvenue.setText(nom);
 		lblSelectionnez.setEnabled(true);
-		btnValider.setEnabled(true);
+		btnValider.setEnabled(false);
 		txtEntrezVotreNom.setText("");
 	}
 	
@@ -118,6 +118,19 @@ public class JFrameMetier extends JFrame {
 	public void errorName(String nom) {
 		JOptionPane.showMessageDialog(this,"Le nom : " + nom + " n'est pas un employé de la boulangerie","Erreur de Nom",JOptionPane.ERROR_MESSAGE);
 		txtEntrezVotreNom.setText("");
-		btnValider.setEnabled(true);
+		btnValider.setEnabled(false);
+	}
+	
+	//Vérifie qu'il n'y a que des lettres dans le text
+	private boolean testString(String text) {
+		return text.matches("[a-zA-Z0]+");
+	}
+	protected void changementTextField() {
+		int length = txtEntrezVotreNom.getDocument().getLength();
+		if(length>=1 && testString(txtEntrezVotreNom.getText())) {
+			btnValider.setEnabled(true);
+		}else {
+			btnValider.setEnabled(false);
+		}
 	}
 }

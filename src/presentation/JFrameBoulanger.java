@@ -134,6 +134,11 @@ public class JFrameBoulanger extends JFrame {
 		panel.add(lblProduits);
 		
 		btnAcheterIngredient = new JButton("Acheter Ingredients");
+		btnAcheterIngredient.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnAcheterIngredient_actionPerformed(e);
+			}
+		});
 		btnAcheterIngredient.setFont(new Font("Arial", Font.PLAIN, 50));
 		btnAcheterIngredient.setBounds(10, 685, 508, 227);
 		panel.add(btnAcheterIngredient);
@@ -175,6 +180,9 @@ public class JFrameBoulanger extends JFrame {
 		this.dialogueBoulangerie = dialogueBoulangerie;
 	}
 	protected void do_btnDeconnexion_actionPerformed(ActionEvent e) {
-		dialogueBoulangerie.deconnexion("boulanger");
+		dialogueBoulangerie.deconnexion();
+	}
+	protected void do_btnAcheterIngredient_actionPerformed(ActionEvent e) {
+		dialogueBoulangerie.changementJFrameAcheterIngredients();
 	}
 }

@@ -1,14 +1,10 @@
 package boundaries;
 
-import java.util.HashMap;
-import java.util.Scanner;
-
 import controleur.ControlAcheterIngredients;
 
 
 public class BoundaryAcheterIngredient {
 	private ControlAcheterIngredients controlAcheterIngredient;
-	private Scanner scan = new Scanner(System.in);
 	
 	public BoundaryAcheterIngredient(ControlAcheterIngredients controlAcheterIngredient) {
 		this.controlAcheterIngredient = controlAcheterIngredient;

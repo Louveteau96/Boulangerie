@@ -143,13 +143,10 @@ public class JFrameAcheterIngredients extends JFrame {
 		btnRetour = new JButton("Retour");
 		btnRetour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 if (Integer.parseInt(textField.getText())>0) {
-					 do_btnRetour_actionPerformed(e);
-				 }else {
-					 btnValider.setEnabled(false);
-				 }
+				do_btnRetour_actionPerformed(e);
 			}
 		});
+
 		btnRetour.setFont(new Font("Arial", Font.PLAIN, 30));
 		btnRetour.setBounds(492, 797, 260, 121);
 		panel.add(btnRetour);
@@ -182,7 +179,7 @@ public class JFrameAcheterIngredients extends JFrame {
 	//Vérifie qu'il y a des chiffres pour valider
 	protected void changementTextField() {
 		int length = textField.getDocument().getLength();
-		if(length>=1 && testInt(textField.getText())) {
+		if(length>=1 && testDouble(textField.getText())) {
 			btnValider.setEnabled(true);
 		}else {
 			btnValider.setEnabled(false);
@@ -190,7 +187,7 @@ public class JFrameAcheterIngredients extends JFrame {
 	}
 	
 	//Vérifie qu'il n'y a que des double dans le text
-	private boolean testInt(String text) {
+	private boolean testDouble(String text) {
 	      try {
 	         Double.parseDouble(text);
 	         return true;
@@ -226,4 +223,9 @@ public class JFrameAcheterIngredients extends JFrame {
 		dialogueBoulangerie.stockUpdate(tableStock);
 	}
 	
+	//Reset achat
+	public void resetAchat() {
+		comboBoxIngredient.setSelectedIndex(0);
+		textField.setText("");
+	}
 }

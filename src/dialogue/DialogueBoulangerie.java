@@ -16,19 +16,24 @@ public class DialogueBoulangerie {
 	
 	private String employe;
 	private Boulangerie boulangerie;
+	//Les controleurs
 	private ControlPresentation controleurPresentation;
 	private ControlStock controlStock;
 	private ControlGestionEmploye controlGestionEmploye;
 	private ControlAcheterIngredients controlAcheterIngredients;
+	private ControlCuisiner controlCuisiner;
+	//Les boundary
 	private BoundaryGestionEmploye boundaryGestionEmploye;
 	private BoundaryPresentation boundaryPresentation;
 	private BoundaryAcheterIngredient boundaryAcheterIngredient;
+	private BoundaryCuisiner boundaryCuisiner;
 	
 	//Les JFrame
 	private JFrameMetier presentationMetier = new JFrameMetier();
 	private JFrameCaissier presentationCaissier = new JFrameCaissier();
 	private JFrameBoulanger presentationBoulanger = new JFrameBoulanger();
 	private JFrameAcheterIngredients presentationAcheterIngredients = new JFrameAcheterIngredients();
+	private JFrameCuisiner presentationCuisiner = new JFrameCuisiner();
 	
 	
 	//Constructeur
@@ -38,9 +43,11 @@ public class DialogueBoulangerie {
 		controlStock = new ControlStock(boulangerie);
 		controlGestionEmploye = new ControlGestionEmploye(boulangerie);
 		controlAcheterIngredients = new ControlAcheterIngredients(boulangerie);
+		controlCuisiner = new ControlCuisiner(boulangerie);
 		boundaryGestionEmploye = new BoundaryGestionEmploye(controlGestionEmploye);
 		boundaryPresentation = new BoundaryPresentation(controleurPresentation);
 		boundaryAcheterIngredient = new BoundaryAcheterIngredient(controlAcheterIngredients);
+		boundaryCuisiner = new BoundaryCuisiner(controlCuisiner);
 	}
 	
 	public void initDialog() {
@@ -57,7 +64,6 @@ public class DialogueBoulangerie {
 		presentationMetier.setVisible(true);
 		presentationBoulanger.setVisible(false);
 		presentationCaissier.setVisible(false);
-		System.out.println(boulangerie.afficherArgent());
 	}
 	
 	  //========================//
@@ -136,6 +142,18 @@ public class DialogueBoulangerie {
 		presentationAcheterIngredients.initialisation(this);
 	}
 	
+	  //===========================//
+	 //Changement JFrame Cuisiner //
+	//===========================//
+	public void changementJFrameCuisiner() {
+		presentationBoulanger.setVisible(false);
+		presentationCuisiner.setVisible(true);
+		presentationCuisiner.initialisation(this);
+		
+	}
+	
+	
+	
 	//Mise à jour des infos du stock
 	public void stockUpdate(JTable tableStock) {
 		int i =0;
@@ -167,7 +185,7 @@ public class DialogueBoulangerie {
 		}
 	}
 	
-	//Mise à jour des ingredients d'un combobox d'ingrédients
+	//Mise à jour des ingredients d'un combobox
 	public String[] comboBoxIngredientsUpdate(JComboBox combobox) {
 		int i =0;
 		HashMap<String,String> stockMap = controlStock.getStockUnite();
@@ -184,6 +202,19 @@ public class DialogueBoulangerie {
 		return tableauUnite;
 	}
 	
+	//Mise à jours des produits d'un combobox
+	public void comboBoxProduitsUpdate(JComboBox combobox) {
+		int i =0;
+		HashMap<String,Double> produitMap = controlStock.getEtalageMap();
+		String[] newComboBox = new String[produitMap.size()]; 
+		for (HashMap.Entry<String, Double> entry : produitMap.entrySet()) {
+			String key = entry.getKey();
+			newComboBox[i] = key;
+			i++;
+		}
+		combobox.setModel(new DefaultComboBoxModel(newComboBox));
+	}
+	
 	//Acheter les ingrédients
 	public void acheterIngredients(String ingredient, Double qty) {
 		int error = boundaryAcheterIngredient.acheterIngredients(ingredient,qty);
@@ -191,7 +222,20 @@ public class DialogueBoulangerie {
 		if(valider) {
 			boundaryAcheterIngredient.obtentionIngredients(ingredient,qty);
 			presentationAcheterIngredients.jtableStockUpdate();
+		}else {
+			presentationAcheterIngredients.resetAchat();
 		}
+	}
+	
+	//Depsense les ingrédients
+	public void depenseIngredients() {
+		
+	}
+	
+	//Met à jour les couleurs du tableau
+	public boolean enoughtIngredients(JTable jtable, String recipe,int qty) {
+		HashMap<String,Double> recette = controlGestionEmploye.getMetier(employe).getRecipe(recipe);
+		return boundaryCuisiner.enoughtIngredients(recette,qty,jtable);
 	}
 
 }

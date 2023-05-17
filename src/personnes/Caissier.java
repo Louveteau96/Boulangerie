@@ -143,6 +143,11 @@ public class Caissier implements Employe{
 	public HashMap<String, Integer> getProductDone() {
 		return null;
 	}
+
+	@Override
+	public HashMap<String, Double> getRecipe(String recipe) {
+		return null;
+	}
 	
 
 

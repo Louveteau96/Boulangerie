@@ -83,6 +83,7 @@ public class Boulanger implements Employe{
 	}
 	
 	//Le boulanger donne sa map de produits cuisinés
+	@Override
 	public HashMap<String, Integer> getProductDone(){
 		return this.produitCuisine;
 	}
@@ -94,8 +95,25 @@ public class Boulanger implements Employe{
 	}
 	
 	//Métier du boulanger
+	@Override
 	public String metier() {
 		return "boulanger";
+	}
+	
+	//Getteur de ses recettes
+	@Override
+	public HashMap<String,Double> getRecipe(String nomRecette) {
+		nomRecette = nomRecette.toLowerCase();
+		switch (nomRecette) {
+		case "baguette": {
+			return recetteBaguette;
+		}
+		case "chocolatine":{
+			return recetteChocolatine;
+		}
+		default:
+			return recetteCroissant;
+		}
 	}
 
 }

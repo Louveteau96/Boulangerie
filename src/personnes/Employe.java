@@ -26,4 +26,6 @@ public interface Employe {
 	public String metier();
 	
 	public HashMap<String, Integer> getProductDone();
+	
+	public HashMap<String,Double> getRecipe(String recipe);
 }

@@ -242,6 +242,17 @@ public class JFrameVendre extends JFrame {
 		textFieldArgentClient.setBounds(527, 526, 210, 40);
 		panel.add(textFieldArgentClient);
 		textFieldArgentClient.setColumns(10);
+		textFieldArgentClient.getDocument().addDocumentListener(new DocumentListener() {
+			public void insertUpdate(DocumentEvent e) {
+				changementVendre();
+			}
+			public void removeUpdate(DocumentEvent e) {
+				changementVendre();
+			}
+			public void changedUpdate(DocumentEvent e) {
+				changementVendre();
+			}
+		});
 		
 		btnRetirer = new JButton("Retirer");
 		btnRetirer.addActionListener(new ActionListener() {
@@ -275,7 +286,7 @@ public class JFrameVendre extends JFrame {
 		//===============//
 		
 		protected void do_btnRetour_actionPerformed(ActionEvent e) {
-			btnAjouter.setEnabled(false);
+			rendreProduits();
 			dialogueBoulangerie.retour(this);
 		}
 		
@@ -323,6 +334,16 @@ public class JFrameVendre extends JFrame {
 				btnRetirer.setEnabled(false);
 			}
 		}
+		
+		//Vérifie qu'il y a des doubles positifs >= au prix pour vendre
+		public void changementVendre() {
+			int length = textFieldArgentClient.getDocument().getLength();
+			if(length>=1 && dialogueBoulangerie.testDouble(textFieldArgentClient.getText())) {
+				btnVendre.setEnabled(enoughtMoney());
+			}else {
+				btnVendre.setEnabled(false);
+			}
+		}
 
 		//Vérifie qu'il y a assez de produits
 		private boolean enoughtProducts() {
@@ -341,13 +362,19 @@ public class JFrameVendre extends JFrame {
 			}case "croissant":{
 				return qty <= Integer.parseInt(commandeTable.getValueAt(1, 1).toString());
 			}case "baguette":{
-				System.out.println(commandeTable.getValueAt(2, 1).toString());
 				return qty <= Integer.parseInt(commandeTable.getValueAt(2, 1).toString());
 			}
 			default:
 				throw new IllegalArgumentException("Unexpected value: " + nomProduit);
 			}
 			
+		}
+		
+		//Vérifie que l'argent donné est correct
+		public boolean enoughtMoney() {
+			double prix = Double.parseDouble(lblPrixDisplay.getText());
+			double argent = Double.parseDouble(textFieldArgentClient.getText());
+			return argent>=prix;
 		}
 		
 		//Affiche les différents types d'erreur
@@ -375,6 +402,7 @@ public class JFrameVendre extends JFrame {
 			comboBoxProduit.setSelectedIndex(0);
 			textFieldNbrProduit.setText("");
 			textFieldArgentClient.setText("");
+			lblPrixDisplay.setText("");
 			resetCommande();
 			btnAjouter.setEnabled(false);
 			btnRetirer.setEnabled(false);
@@ -421,6 +449,20 @@ public class JFrameVendre extends JFrame {
 				throw new IllegalArgumentException("Unexpected value: " + produit);
 			}
 		}
+		
+		//Rend les produits de la commande si ils n'ont pas été acheté
+		public void rendreProduits() {
+			HashMap<String,Integer> commandeMap = new HashMap<>();
+			int nbrChocolatine = Integer.parseInt(commandeTable.getValueAt(0, 1).toString());
+			int nbrCroissant = Integer.parseInt(commandeTable.getValueAt(1, 1).toString());
+			int nbtBaguette = Integer.parseInt(commandeTable.getValueAt(2, 1).toString());
+			commandeMap.put("chocolatine", nbrChocolatine);
+			commandeMap.put("croissant", nbrCroissant);
+			commandeMap.put("baguette", nbtBaguette);
+			dialogueBoulangerie.remiseEtal(commandeMap);
+		}
+		
+		
 		
 
 }

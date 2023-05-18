@@ -8,7 +8,8 @@ public class ControlVerifContent {
 	//Vérifie qu'un texte ne contienne que des double
 	public boolean testDouble(String text) {
 		try {
-	         return Double.parseDouble(text)>0;
+			double chiffre = Double.parseDouble(text);
+	         return chiffre>0;
 	      } catch (NumberFormatException e) {
 	         return false;
 	      }
@@ -17,7 +18,8 @@ public class ControlVerifContent {
 	//Vérifie qu'un texte ne contienne que des integer
 	public boolean testInteger(String text) {
 		try {
-			return Integer.parseInt(text)>0;
+			int chiffre = Integer.parseInt(text);
+			return chiffre>0;
 		}catch(NumberFormatException e) {
 			return false;
 		}

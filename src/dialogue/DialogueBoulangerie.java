@@ -321,12 +321,13 @@ public class DialogueBoulangerie {
 		presentationVendre.ajouterRetirerCommande(produit,qty);
 		presentationVendre.changementRetirer();
 		presentationVendre.priceUpdate();
+		presentationVendre.changementVendre();
 		
 	}
 	
 	//Remise de la commande annulé dans l'étal
 	public void remiseEtal(HashMap<String,Integer> productsMap) {
-		
+		boundaryStock.ajouterMapProduit(productsMap);
 	}
 
 }

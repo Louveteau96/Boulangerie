@@ -44,6 +44,16 @@ public class ControlStock {
 	public void retirerProduit(String nom,double qty) {
 		boulangerie.depenseProduit(nom, qty);
 	}
+	
+	//Ajoute des produits à l'étalage à partir d'une map
+	public void ajouterMapProduit(HashMap<String,Integer> produitMap) {
+		for (HashMap.Entry<String, Integer> entry : produitMap.entrySet()) {
+			String key = entry.getKey();
+			Integer val = entry.getValue();
+			ajouterProduit(key,val*1.0);
+			
+		}
+	}
 
 
 }

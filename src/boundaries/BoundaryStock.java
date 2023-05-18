@@ -46,5 +46,9 @@ public class BoundaryStock {
 		double removeQty = qty*1.0;
 		controlStock.retirerProduit(nom,removeQty);
 	}
+	
+	public void ajouterMapProduit(HashMap<String,Integer> mapProduit) {
+		controlStock.ajouterMapProduit(mapProduit);
+	}
 
 }

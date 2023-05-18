@@ -39,6 +39,11 @@ public class ControlStock {
 	public void ajouterProduit(String nom,double qty) {
 		boulangerie.ajoutProduit(nom, qty);
 	}
+	
+	//Retire des produits à l'étalage
+	public void retirerProduit(String nom,double qty) {
+		boulangerie.depenseProduit(nom, qty);
+	}
 
 
 }

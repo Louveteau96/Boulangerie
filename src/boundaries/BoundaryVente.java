@@ -13,4 +13,7 @@ public class BoundaryVente {
 	
 	
 	//Méthodes
+	public double priceUpdate(int qtyChocolatine,int qtyCroissant, int qtyBaguette) {
+		return controlVente.getPrice(qtyChocolatine, qtyCroissant, qtyBaguette);
+	}
 }

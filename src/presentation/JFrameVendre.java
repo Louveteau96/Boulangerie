@@ -32,7 +32,7 @@ public class JFrameVendre extends JFrame {
 	private JPanel panel;
 	private JLabel lblVendre;
 	private JLabel lblEtalage;
-	private JComboBox comboBoxRecette;
+	private JComboBox comboBoxProduit;
 	private JLabel lblUnite;
 	private JTextField textFieldNbrProduit;
 	private JButton btnAjouter;
@@ -78,16 +78,16 @@ public class JFrameVendre extends JFrame {
 		lblEtalage.setBounds(10, 202, 530, 40);
 		panel.add(lblEtalage);
 		
-		comboBoxRecette = new JComboBox();
-		comboBoxRecette.addActionListener(new ActionListener() {
+		comboBoxProduit = new JComboBox();
+		comboBoxProduit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				do_comboBoxRecette_actionPerformed(e);
 			}
 		});
-		comboBoxRecette.setModel(new DefaultComboBoxModel(new String[] {""}));
+		comboBoxProduit.setModel(new DefaultComboBoxModel(new String[] {""}));
 
-		comboBoxRecette.setBounds(684, 241, 156, 36);
-		panel.add(comboBoxRecette);
+		comboBoxProduit.setBounds(684, 241, 156, 36);
+		panel.add(comboBoxProduit);
 		
 		lblUnite = new JLabel("Unite");
 		lblUnite.setBackground(new Color(255, 255, 255));
@@ -99,12 +99,15 @@ public class JFrameVendre extends JFrame {
 		textFieldNbrProduit.getDocument().addDocumentListener(new DocumentListener() {
 			public void insertUpdate(DocumentEvent e) {
 				changementTextField();
+				changementRetirer();
 			}
 			public void removeUpdate(DocumentEvent e) {
 				changementTextField();
+				changementRetirer();
 			}
 			public void changedUpdate(DocumentEvent e) {
 				changementTextField();
+				changementRetirer();
 			}
 		});
 
@@ -115,9 +118,10 @@ public class JFrameVendre extends JFrame {
 		btnAjouter = new JButton("Ajouter");
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				do_btnValider_actionPerformed(e);
+				do_btnAjouter_actionPerformed(e);
 			}
 		});
+
 		btnAjouter.setFont(new Font("Arial", Font.PLAIN, 30));
 		btnAjouter.setBounds(721, 331, 184, 52);
 		panel.add(btnAjouter);
@@ -209,6 +213,11 @@ public class JFrameVendre extends JFrame {
 		panel.add(commandeTable);
 		
 		btnVendre = new JButton("Vendre");
+		btnVendre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnVendre_actionPerformed(e);
+			}
+		});
 		btnVendre.setFont(new Font("Arial", Font.PLAIN, 30));
 		btnVendre.setBounds(812, 516, 184, 52);
 		panel.add(btnVendre);
@@ -235,6 +244,11 @@ public class JFrameVendre extends JFrame {
 		textFieldArgentClient.setColumns(10);
 		
 		btnRetirer = new JButton("Retirer");
+		btnRetirer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnRetirer_actionPerformed(e);
+			}
+		});
 		btnRetirer.setFont(new Font("Arial", Font.PLAIN, 30));
 		btnRetirer.setBounds(945, 331, 184, 52);
 		panel.add(btnRetirer);
@@ -247,8 +261,13 @@ public class JFrameVendre extends JFrame {
 	
 		public void initialisation(DialogueBoulangerie dialogue) {
 			this.dialogueBoulangerie = dialogue;
-			dialogueBoulangerie.comboBoxProduitsUpdate(comboBoxRecette);
+			dialogueBoulangerie.comboBoxProduitsUpdate(comboBoxProduit);
+			etalageUpdate();
 			resetAchat();
+		}
+		
+		public void etalageUpdate() {
+			dialogueBoulangerie.etalageUpdate(etalageTable);
 		}
 		
 		//===============//
@@ -259,15 +278,25 @@ public class JFrameVendre extends JFrame {
 			btnAjouter.setEnabled(false);
 			dialogueBoulangerie.retour(this);
 		}
-
-		protected void do_btnValider_actionPerformed(ActionEvent e) {
-			String recette = comboBoxRecette.getItemAt(comboBoxRecette.getSelectedIndex()).toString();
-			int qty = Integer.valueOf(textFieldNbrProduit.getText());
-			dialogueBoulangerie.depenseIngredients(recette,qty);
-		}
 		
 		protected void do_comboBoxRecette_actionPerformed(ActionEvent e) {
 			changementTextField();
+			changementRetirer();
+		}
+		
+		protected void do_btnAjouter_actionPerformed(ActionEvent e) {
+			String produit = comboBoxProduit.getSelectedItem().toString();
+			int qty = Integer.parseInt(textFieldNbrProduit.getText());
+			dialogueBoulangerie.ajouterRetirerProduitCommande(produit,qty);
+		}
+		protected void do_btnRetirer_actionPerformed(ActionEvent e) {
+			String produit = comboBoxProduit.getSelectedItem().toString();
+			int qty = Integer.parseInt(textFieldNbrProduit.getText());
+			dialogueBoulangerie.ajouterRetirerProduitCommande(produit, -qty);
+			
+		}
+		protected void do_btnVendre_actionPerformed(ActionEvent e) {
+			
 		}
 		
 		//============//
@@ -287,19 +316,38 @@ public class JFrameVendre extends JFrame {
 		
 		//Vérifie qu'il y a des chiffres positifs pour retirer
 		public void changementRetirer() {
-			int length = textFieldArgentClient.getDocument().getLength();
-			if(length>=1 && dialogueBoulangerie.testDouble(textFieldNbrProduit.getText())) {
-				btnAjouter.setEnabled(enoughtProducts());
+			int length = textFieldNbrProduit.getDocument().getLength();
+			if(length>=1 && dialogueBoulangerie.testInteger(textFieldNbrProduit.getText())) {
+				btnRetirer.setEnabled(enoughtCommand());
 			}else {
-				btnAjouter.setEnabled(false);
+				btnRetirer.setEnabled(false);
 			}
 		}
 
 		//Vérifie qu'il y a assez de produits
 		private boolean enoughtProducts() {
-			String nomProduit = comboBoxRecette.getItemAt(comboBoxRecette.getSelectedIndex()).toString();
+			String nomProduit = comboBoxProduit.getItemAt(comboBoxProduit.getSelectedIndex()).toString();
 			int qty = Integer.parseInt(textFieldNbrProduit.getText());
 			return dialogueBoulangerie.enoughtProducts(nomProduit, qty);
+		}
+		
+		//Vérifie qu'il y a assez de produits dans la commande
+		private boolean enoughtCommand() {
+			String nomProduit = comboBoxProduit.getItemAt(comboBoxProduit.getSelectedIndex()).toString();
+			int qty = Integer.parseInt(textFieldNbrProduit.getText());
+			switch (nomProduit) {
+			case "chocolatine": {
+				return qty <= Integer.parseInt(commandeTable.getValueAt(0, 1).toString());
+			}case "croissant":{
+				return qty <= Integer.parseInt(commandeTable.getValueAt(1, 1).toString());
+			}case "baguette":{
+				System.out.println(commandeTable.getValueAt(2, 1).toString());
+				return qty <= Integer.parseInt(commandeTable.getValueAt(2, 1).toString());
+			}
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + nomProduit);
+			}
+			
 		}
 		
 		//Affiche les différents types d'erreur
@@ -324,7 +372,7 @@ public class JFrameVendre extends JFrame {
 		
 		//Reset achat
 		public void resetAchat() {
-			comboBoxRecette.setSelectedIndex(0);
+			comboBoxProduit.setSelectedIndex(0);
 			textFieldNbrProduit.setText("");
 			textFieldArgentClient.setText("");
 			resetCommande();
@@ -339,12 +387,40 @@ public class JFrameVendre extends JFrame {
 			commandeTable.setValueAt(0, 0, 1);
 			commandeTable.setValueAt(0, 1, 1);
 			commandeTable.setValueAt(0, 2, 1);
-			commandeTable.setValueAt("Baguette", 0, 0);
-			commandeTable.setValueAt("Chocolatine", 1, 0);
-			commandeTable.setValueAt("Croissant", 2, 0);
+			commandeTable.setValueAt("chocolatine", 0, 0);
+			commandeTable.setValueAt("croissant", 1, 0);
+			commandeTable.setValueAt("baguette", 2, 0);
 		}
 		
+		//Met le prix à jour
+		public void priceUpdate() {
+			int qtyChocolatine = Integer.parseInt(commandeTable.getValueAt(0,1).toString());
+			int qtyCroissant = Integer.parseInt(commandeTable.getValueAt(1,1).toString());
+			int qtyBaguette = Integer.parseInt(commandeTable.getValueAt(2,1).toString());
+			double prix = dialogueBoulangerie.priceUpdate(qtyChocolatine,qtyCroissant,qtyBaguette);
+			lblPrixDisplay.setText(String.valueOf(prix));
+		}
+		
+		//Ajoute des produits à la commande
+		public void ajouterRetirerCommande(String produit,int qty) {
+			switch (produit) {
+			case "chocolatine": {
+				int previousQty = Integer.parseInt(commandeTable.getValueAt(0, 1).toString());
+				commandeTable.setValueAt(previousQty+qty, 0, 1);
+				break;
+			}case "croissant":{
+				int previousQty = Integer.parseInt(commandeTable.getValueAt(1, 1).toString());
+				commandeTable.setValueAt(previousQty+qty, 1, 1);
+				break;
+			}case "baguette":{
+				int previousQty = Integer.parseInt(commandeTable.getValueAt(2, 1).toString());
+				commandeTable.setValueAt(previousQty+qty, 2, 1);
+				break;
+			}
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + produit);
+			}
+		}
 		
 
-	
 }

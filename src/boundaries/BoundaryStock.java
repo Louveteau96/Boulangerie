@@ -40,5 +40,11 @@ public class BoundaryStock {
 		double addQty = qty*1.0;
 		controlStock.ajouterProduit(nom,addQty);
 	}
+	
+	public void retirerProduit(String nom,int qty) {
+		nom=nom.toLowerCase();
+		double removeQty = qty*1.0;
+		controlStock.retirerProduit(nom,removeQty);
+	}
 
 }

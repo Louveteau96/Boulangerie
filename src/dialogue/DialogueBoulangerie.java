@@ -24,6 +24,7 @@ public class DialogueBoulangerie {
 	private BoundaryAcheterIngredient boundaryAcheterIngredient;
 	private BoundaryCuisiner boundaryCuisiner;
 	private BoundaryVerifContent boundaryVerifContent;
+	private BoundaryVente boundaryVente;
 	
 	//Les JFrame
 	private JFrameMetier presentationMetier = new JFrameMetier();
@@ -43,14 +44,12 @@ public class DialogueBoulangerie {
 		boundaryAcheterIngredient = new BoundaryAcheterIngredient(boulangerie);
 		boundaryCuisiner = new BoundaryCuisiner(boulangerie);
 		boundaryVerifContent = new BoundaryVerifContent();
+		boundaryVente = new BoundaryVente(boulangerie);
 	}
 	
+	
+	
 	public void initDialog() {
-		//Initialisation des employés
-		String caissier = "Marc";
-		String boulanger = "jose";
-		boundaryGestionEmploye.ajouterEmploye(caissier, "caissier");
-		boundaryGestionEmploye.ajouterEmploye(boulanger, "boulanger");
 		//Associate dialogue to presentation
 		presentationMetier.setDialogue(this);
 		//Initialize and enable presentation Frame
@@ -307,6 +306,27 @@ public class DialogueBoulangerie {
 	}
 	public boolean testInteger(String text) {
 		return boundaryVerifContent.testInteger(text);
+	}
+	
+	//Price update
+	public double priceUpdate(int qtyChocolatine,int qtyCroissant, int qtyBaguette) {
+		return boundaryVente.priceUpdate(qtyChocolatine, qtyCroissant, qtyBaguette);
+	}
+
+	//Ajouter des produits à la commande
+	public void ajouterRetirerProduitCommande(String produit, int qty) {
+		boundaryStock.retirerProduit(produit, qty);
+		presentationVendre.etalageUpdate();
+		presentationVendre.changementTextField();
+		presentationVendre.ajouterRetirerCommande(produit,qty);
+		presentationVendre.changementRetirer();
+		presentationVendre.priceUpdate();
+		
+	}
+	
+	//Remise de la commande annulé dans l'étal
+	public void remiseEtal(HashMap<String,Integer> productsMap) {
+		
 	}
 
 }

@@ -25,8 +25,19 @@ public class ControlStock {
 	}
 	
 	public HashMap<String,Integer> getProductDone(String nom){
-		nom=nom.toLowerCase();
 		return boulangerie.getEmploye(nom).getProductDone();
+	}
+	
+	//Vérifie si il y a assez de produits dans l'étalage
+	public boolean enoughtProducts(String produit, int qty) {
+		HashMap<String,Double> etaleMap = getEtalageMap();
+		Double productStock = etaleMap.get(produit);
+		return productStock >= qty;
+	}
+	
+	//Ajoute des produits à l'étalage
+	public void ajouterProduit(String nom,double qty) {
+		boulangerie.ajoutProduit(nom, qty);
 	}
 
 

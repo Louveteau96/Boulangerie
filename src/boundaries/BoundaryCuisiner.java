@@ -5,13 +5,14 @@ import java.util.HashMap;
 
 import javax.swing.JTable;
 
+import batiment.Boulangerie;
 import controleur.ControlCuisiner;
 
 public class BoundaryCuisiner {
 	private ControlCuisiner controlCuisiner;
 	
-	public BoundaryCuisiner(ControlCuisiner controlCuisiner) {
-		this.controlCuisiner = controlCuisiner;
+	public BoundaryCuisiner(Boulangerie boulangerie) {
+		this.controlCuisiner = new ControlCuisiner(boulangerie);
 	}
 	
 	//Les méthodes

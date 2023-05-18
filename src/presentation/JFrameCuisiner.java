@@ -27,7 +27,6 @@ import dialogue.DialogueBoulangerie;
 public class JFrameCuisiner extends JFrame {
 
 	private DialogueBoulangerie dialogueBoulangerie;
-	private String[] tableauUnite;
 	private JPanel contentPane;
 	private JPanel panel;
 	private JLabel lblCuisiner;
@@ -327,117 +326,118 @@ public class JFrameCuisiner extends JFrame {
 	
 	
 	
-	//Intitialisation
-		public void initialisation(DialogueBoulangerie dialogue) {
-			this.dialogueBoulangerie = dialogue;
-			dialogueBoulangerie.comboBoxProduitsUpdate(comboBoxRecette);
-			btnValider.setEnabled(false);
-			comboBoxRecette.setSelectedIndex(0);
-			textField.setText("");
-			arrayInit();
-			dialogueBoulangerie.stockArrayUpdate(tables);
-			resetColors();
-		}
-		
-		//Les méthodes
-		protected void do_btnRetour_actionPerformed(ActionEvent e) {
-			resetColors();
-			btnValider.setEnabled(false);
-			dialogueBoulangerie.retour(this);
-		}
-
-		protected void do_btnValider_actionPerformed(ActionEvent e) {
-			String recette = comboBoxRecette.getItemAt(comboBoxRecette.getSelectedIndex()).toString();
-			int qty = Integer.valueOf(textField.getText());
-			dialogueBoulangerie.depenseIngredients(recette,qty);
-		}
-		
-		//Vérifie qu'il y a des chiffres pour valider
-		public void changementTextField() {
-			int length = textField.getDocument().getLength();
-			if(length>=1 && testInt(textField.getText())) {
-				if(enoughtIngredient() && Integer.parseInt(textField.getText()) !=0) {
-					btnValider.setEnabled(true);
-				}else {
-					btnValider.setEnabled(false);
-				}
-			}else {
-				btnValider.setEnabled(false);
-			}
+	//===============//
+	//Intitialisation//
+	//===============//
+	
+	public void initialisation(DialogueBoulangerie dialogue) {
+		this.dialogueBoulangerie = dialogue;
+		dialogueBoulangerie.comboBoxProduitsUpdate(comboBoxRecette);
+		btnValider.setEnabled(false);
+		comboBoxRecette.setSelectedIndex(0);
+		textField.setText("");
+		arrayInit();
+		dialogueBoulangerie.stockArrayUpdate(tables);
+		resetColors();
+	}
+	
+	//Initialiste la arrayList de table
+	private void arrayInit(){
+		this.tables = new ArrayList<>();
+		this.tables.add(table_0);
+		this.tables.add(table_1);
+		this.tables.add(table_2);
+		this.tables.add(table_3);
+		this.tables.add(table_4);
+		this.tables.add(table_5);
+		this.tables.add(table_6);
+		this.tables.add(table_7);	
+	}
 			
-		}
-		
-		//Vérifie qu'il n'y a que des integers dans le texte
-		private boolean testInt(String text) {
-		      try {
-		         Integer.parseInt(text);
-		         return true;
-		      } catch (NumberFormatException e) {
-		         return false;
-		      }
-		}
-		
-		//Vérifie qu'il y a assez d'ingredients pour activer valider
-		private boolean enoughtIngredient() {
-			String text = comboBoxRecette.getItemAt(comboBoxRecette.getSelectedIndex()).toString();
-			int qty = Integer.parseInt(textField.getText());
-			return dialogueBoulangerie.enoughtIngredients(tables, text, qty);
-		}
-		
-		//Affiche les différents types d'erreur
-		public boolean errorDisplay(int numError) {
-			switch (numError) {
-			case 0: {
-				JOptionPane.showMessageDialog(this,"L'ingrédient demandé n'existe pas","Erreur d'ingrédients",JOptionPane.ERROR_MESSAGE);
-				return false;
-			}case 1: {
-				JOptionPane.showMessageDialog(this,"La boulangerie n'a pas assez de fonds","Probleme de fonds",JOptionPane.ERROR_MESSAGE);
-				return false;
-			}case 2:{
-				int retour = JOptionPane.showConfirmDialog(this,"Etes vous sur ?","Validation",JOptionPane.OK_CANCEL_OPTION);
-				if(retour==0) {
-					return true;
-				}else {
-					return false;
-				}
-			}
-			default:
-				throw new IllegalArgumentException("Unexpected value: " + numError);
-			}
-		}
-		
-		//JTable stock update
-		public void jtableStockUpdate() {
-			dialogueBoulangerie.stockArrayUpdate(tables);
-		}
-		
-		//Reset achat
-		public void resetAchat() {
-			comboBoxRecette.setSelectedIndex(0);
-			textField.setText("");
-			resetColors();
-		}
-		
-		//Reset couleurs
-		public void resetColors() {
-			for(int i =0;i<tables.size();i++) {
-				tables.get(i).setBackground(Color.white);
-			}
-		}
-		
-		//Initialiste la arrayList de table
-		private void arrayInit(){
-			this.tables = new ArrayList<JTable>();
-			this.tables.add(table_0);
-			this.tables.add(table_1);
-			this.tables.add(table_2);
-			this.tables.add(table_3);
-			this.tables.add(table_4);
-			this.tables.add(table_5);
-			this.tables.add(table_6);
-			this.tables.add(table_7);	
-		}
+	
+	//===================//
+	//Les boutons cliqués//
+	//===================//
+	
+	protected void do_btnRetour_actionPerformed(ActionEvent e) {
+		resetColors();
+		btnValider.setEnabled(false);
+		dialogueBoulangerie.retour(this);
+	}
+
+	protected void do_btnValider_actionPerformed(ActionEvent e) {
+		String recette = comboBoxRecette.getItemAt(comboBoxRecette.getSelectedIndex()).toString();
+		int qty = Integer.parseInt(textField.getText());
+		dialogueBoulangerie.depenseIngredients(recette,qty);
+		dialogueBoulangerie.ajouterProduit(recette, qty);
+	}
+	
 	protected void do_comboBoxRecette_actionPerformed(ActionEvent e) {
 		changementTextField();
 	}
+	
+	
+	
+	//============//
+	//Les Méthodes//
+	//============//
+	
+	//Vérifie qu'il y a des chiffres pour valider
+	public void changementTextField() {
+		int length = textField.getDocument().getLength();
+		if(length>=1 && dialogueBoulangerie.testInteger(textField.getText())) {
+			btnValider.setEnabled(enoughtIngredient());
+		}else {
+			btnValider.setEnabled(false);
+		}
+	}
+	
+	//Vérifie qu'il y a assez d'ingredients pour activer valider
+	private boolean enoughtIngredient() {
+		String text = comboBoxRecette.getItemAt(comboBoxRecette.getSelectedIndex()).toString();
+		int qty = Integer.parseInt(textField.getText());
+		return dialogueBoulangerie.enoughtIngredients(tables, text, qty);
+	}
+	
+	//Affiche les différents types d'erreur
+	public boolean errorDisplay(int numError) {
+		switch (numError) {
+		case 0: {
+			JOptionPane.showMessageDialog(this,"L'ingrédient demandé n'existe pas","Erreur d'ingrédients",JOptionPane.ERROR_MESSAGE);
+			return false;
+		}case 1: {
+			JOptionPane.showMessageDialog(this,"La boulangerie n'a pas assez de fonds","Probleme de fonds",JOptionPane.ERROR_MESSAGE);
+			return false;
+		}case 2:{
+			int retour = JOptionPane.showConfirmDialog(this,"Etes vous sur ?","Validation",JOptionPane.OK_CANCEL_OPTION);
+			if(retour==0) {
+				return true;
+			}else {
+				return false;
+			}
+		}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + numError);
+		}
+	}
+	
+	//JTable stock update
+	public void jtableStockUpdate() {
+		dialogueBoulangerie.stockArrayUpdate(tables);
+	}
+	
+	//Reset achat
+	public void resetAchat() {
+		comboBoxRecette.setSelectedIndex(0);
+		textField.setText("");
+		resetColors();
+	}
+	
+	//Reset couleurs
+	public void resetColors() {
+		for(int i =0;i<tables.size();i++) {
+			tables.get(i).setBackground(Color.white);
+		}
+	}
+	
 }

@@ -10,8 +10,6 @@ import java.util.*;
 public class Caissier implements Employe{
 	private Boulangerie boulangerie;
 	private String nom;
-	private ControlVente controlVente = new ControlVente(boulangerie);
-	private BoundaryVente boundaryVente = new BoundaryVente(controlVente);
 	
 	public Caissier(Boulangerie boulangerie,String nom){
 		this.boulangerie = boulangerie;

@@ -1,15 +1,16 @@
 package boundaries;
 
+import java.util.HashMap;
+
+import batiment.Boulangerie;
 import controleur.ControlGestionEmploye;
-import personnes.*;
-import presentation.*;
 
 public class BoundaryGestionEmploye {
 	private ControlGestionEmploye controlGestionEmploye;
 	
 	//Constructeur
-	public BoundaryGestionEmploye(ControlGestionEmploye controlGestionEmploye) {
-		this.controlGestionEmploye = controlGestionEmploye;
+	public BoundaryGestionEmploye(Boulangerie boulangerie) {
+		this.controlGestionEmploye = new ControlGestionEmploye(boulangerie);
 	}
 	
 	//Méthodes
@@ -41,6 +42,19 @@ public class BoundaryGestionEmploye {
 		}else {
 			return "boulanger";
 		}
+	}
+	
+	//Getteur de recette
+	public HashMap<String,Double> getRecipe(String nomEmploye,String recetteNom){
+		nomEmploye = nomEmploye.toLowerCase();
+		recetteNom = recetteNom.toLowerCase();
+		return controlGestionEmploye.getRecipe(nomEmploye, recetteNom);
+	}
+	
+	//getteur des produits réalisés
+	public HashMap<String, Integer> getProductsDone(String nomEmploye){
+		nomEmploye = nomEmploye.toLowerCase();
+		return controlGestionEmploye.getProductsDone(nomEmploye);
 	}
 
 }

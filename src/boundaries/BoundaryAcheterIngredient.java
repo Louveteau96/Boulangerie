@@ -1,13 +1,14 @@
 package boundaries;
 
+import batiment.Boulangerie;
 import controleur.ControlAcheterIngredients;
 
 
 public class BoundaryAcheterIngredient {
 	private ControlAcheterIngredients controlAcheterIngredient;
 	
-	public BoundaryAcheterIngredient(ControlAcheterIngredients controlAcheterIngredient) {
-		this.controlAcheterIngredient = controlAcheterIngredient;
+	public BoundaryAcheterIngredient(Boulangerie boulangerie) {
+		this.controlAcheterIngredient = new ControlAcheterIngredients(boulangerie);
 	}
 	
 	public int acheterIngredients(String ingredient, Double qty) {

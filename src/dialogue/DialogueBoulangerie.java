@@ -17,17 +17,13 @@ public class DialogueBoulangerie {
 	
 	private String employe;
 	private Boulangerie boulangerie;
-	//Les controleurs
-	private ControlPresentation controleurPresentation;
-	private ControlStock controlStock;
-	private ControlGestionEmploye controlGestionEmploye;
-	private ControlAcheterIngredients controlAcheterIngredients;
-	private ControlCuisiner controlCuisiner;
 	//Les boundary
-	private BoundaryGestionEmploye boundaryGestionEmploye;
 	private BoundaryPresentation boundaryPresentation;
+	private BoundaryStock boundaryStock;
+	private BoundaryGestionEmploye boundaryGestionEmploye;
 	private BoundaryAcheterIngredient boundaryAcheterIngredient;
 	private BoundaryCuisiner boundaryCuisiner;
+	private BoundaryVerifContent boundaryVerifContent;
 	
 	//Les JFrame
 	private JFrameMetier presentationMetier = new JFrameMetier();
@@ -41,15 +37,12 @@ public class DialogueBoulangerie {
 	//Constructeur
 	public DialogueBoulangerie(Boulangerie boulangerie) {
 		this.boulangerie=boulangerie;
-		controleurPresentation = new ControlPresentation(boulangerie);
-		controlStock = new ControlStock(boulangerie);
-		controlGestionEmploye = new ControlGestionEmploye(boulangerie);
-		controlAcheterIngredients = new ControlAcheterIngredients(boulangerie);
-		controlCuisiner = new ControlCuisiner(boulangerie);
-		boundaryGestionEmploye = new BoundaryGestionEmploye(controlGestionEmploye);
-		boundaryPresentation = new BoundaryPresentation(controleurPresentation);
-		boundaryAcheterIngredient = new BoundaryAcheterIngredient(controlAcheterIngredients);
-		boundaryCuisiner = new BoundaryCuisiner(controlCuisiner);
+		boundaryPresentation = new BoundaryPresentation(boulangerie);
+		boundaryStock = new BoundaryStock(boulangerie);
+		boundaryGestionEmploye = new BoundaryGestionEmploye(boulangerie);
+		boundaryAcheterIngredient = new BoundaryAcheterIngredient(boulangerie);
+		boundaryCuisiner = new BoundaryCuisiner(boulangerie);
+		boundaryVerifContent = new BoundaryVerifContent();
 	}
 	
 	public void initDialog() {
@@ -168,8 +161,8 @@ public class DialogueBoulangerie {
 	//Mise à jour des infos du stock
 	public void stockUpdate(JTable tableStock) {
 		int i =0;
-		HashMap<String,Double> stockMap = controlStock.getStockMap();
-		HashMap<String,String> uniteMap = controlStock.getStockUnite();
+		HashMap<String,Double> stockMap = boundaryStock.getStockMap();
+		HashMap<String,String> uniteMap = boundaryStock.getStockUnite();
 		tableStock.getModel();
 		for (HashMap.Entry<String, Double> entry : stockMap.entrySet()) {
 			String key = entry.getKey();
@@ -185,7 +178,7 @@ public class DialogueBoulangerie {
 	//Mise à jour des infos des produits cuisinés
 	public void productDoneUpdate(JTable tableProduit) {
 		int i =0;
-		HashMap<String,Integer> produitMap = controlStock.getProductDone(employe);
+		HashMap<String,Integer> produitMap = boundaryStock.getProductDone(employe);
 		tableProduit.getModel();
 		for (HashMap.Entry<String, Integer> entry : produitMap.entrySet()) {
 			String key = entry.getKey();
@@ -199,7 +192,7 @@ public class DialogueBoulangerie {
 	//Mise à jour des infos de l'étalage
 	public void etalageUpdate(JTable tableProduit) {
 		int i =0;
-		HashMap<String,Double> produitMap = controlStock.getEtalageMap();
+		HashMap<String,Double> produitMap = boundaryStock.getEtalageMap();
 		tableProduit.getModel();
 		for (HashMap.Entry<String, Double> entry : produitMap.entrySet()) {
 			String key = entry.getKey();
@@ -213,7 +206,7 @@ public class DialogueBoulangerie {
 	//Mise à jour des ingredients d'un combobox
 	public String[] comboBoxIngredientsUpdate(JComboBox combobox) {
 		int i =0;
-		HashMap<String,String> stockMap = controlStock.getStockUnite();
+		HashMap<String,String> stockMap = boundaryStock.getStockUnite();
 		String[] newComboBox = new String[stockMap.size()];
 		String[] tableauUnite = new String[stockMap.size()];
 		for (HashMap.Entry<String, String> entry : stockMap.entrySet()) {
@@ -230,7 +223,7 @@ public class DialogueBoulangerie {
 	//Mise à jour des produits d'un combobox
 	public void comboBoxProduitsUpdate(JComboBox combobox) {
 		int i =0;
-		HashMap<String,Double> produitMap = controlStock.getEtalageMap();
+		HashMap<String,Double> produitMap = boundaryStock.getEtalageMap();
 		String[] newComboBox = new String[produitMap.size()]; 
 		for (HashMap.Entry<String, Double> entry : produitMap.entrySet()) {
 			String key = entry.getKey();
@@ -243,8 +236,8 @@ public class DialogueBoulangerie {
 	//Mise à jour des ingrédients d'une arrayList de JTable
 	public void stockArrayUpdate(ArrayList<JTable> tables) {
 		int i =0;
-		HashMap<String,Double> stockMap = controlStock.getStockMap();
-		HashMap<String,String> uniteMap = controlStock.getStockUnite();
+		HashMap<String,Double> stockMap = boundaryStock.getStockMap();
+		HashMap<String,String> uniteMap = boundaryStock.getStockUnite();
 		for (HashMap.Entry<String, Double> entry : stockMap.entrySet()) {
 			String key = entry.getKey();
 			Double val = entry.getValue();
@@ -273,18 +266,18 @@ public class DialogueBoulangerie {
 		int error = 2;
 		boolean valider = presentationCuisiner.errorDisplay(error);
 		if(valider) {
-			HashMap<String,Double> recette = controlGestionEmploye.getMetier(employe).getRecipe(recetteNom);
+			HashMap<String,Double> recette = boundaryGestionEmploye.getRecipe(employe,recetteNom);
 			boundaryCuisiner.depenserIngredients(recette, qty);
 			presentationCuisiner.jtableStockUpdate();
 			presentationCuisiner.changementTextField();
 			
 			//Mise à jour des infos pour le boulanger
-			HashMap<String, Integer> productsDone= controlGestionEmploye.getMetier(employe).getProductDone();
+			HashMap<String, Integer> productsDone= boundaryGestionEmploye.getProductsDone(employe);
 			int qtyDejaFaite = productsDone.get(recetteNom);
 			productsDone.put(recetteNom, qtyDejaFaite+qty);
 			
 			//Mise à jour de l'étalage
-			HashMap<String,Double> mapEtalage = controlStock.getEtalageMap();
+			HashMap<String,Double> mapEtalage = boundaryStock.getEtalageMap();
 			mapEtalage.put(recetteNom, qty*1.0);
 		}else {
 			presentationCuisiner.resetAchat();
@@ -292,10 +285,28 @@ public class DialogueBoulangerie {
 		
 	}
 	
+	//Ajoute les produits créés
+	public void ajouterProduit(String nomProduit,int qty) {
+		boundaryStock.ajouterProduit(nomProduit, qty);
+	}
+	
 	//Met à jour les couleurs du tableau
 	public boolean enoughtIngredients(ArrayList<JTable> tables, String recetteNom,int qty) {
-		HashMap<String,Double> recette = controlGestionEmploye.getMetier(employe).getRecipe(recetteNom);
+		HashMap<String,Double> recette = boundaryGestionEmploye.getRecipe(employe,recetteNom);
 		return boundaryCuisiner.enoughtIngredients(recette,qty,tables);
+	}
+	
+	//Vérifie si il y a assez de stock dans l'étalage
+	public boolean enoughtProducts(String nomProduit, int qty) {
+		return boundaryStock.enoughtProducts(nomProduit, qty);
+	}
+	
+	//Les tests
+	public boolean testDouble(String text) {
+		return boundaryVerifContent.testDouble(text);
+	}
+	public boolean testInteger(String text) {
+		return boundaryVerifContent.testInteger(text);
 	}
 
 }

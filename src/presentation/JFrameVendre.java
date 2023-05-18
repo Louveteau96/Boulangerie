@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -27,20 +28,25 @@ import dialogue.DialogueBoulangerie;
 public class JFrameVendre extends JFrame {
 
 	private DialogueBoulangerie dialogueBoulangerie;
-	private String[] tableauUnite;
 	private JPanel contentPane;
 	private JPanel panel;
 	private JLabel lblVendre;
 	private JLabel lblEtalage;
 	private JComboBox comboBoxRecette;
 	private JLabel lblUnite;
-	private JTextField textField;
+	private JTextField textFieldNbrProduit;
 	private JButton btnAjouter;
 	private JButton btnRetour;
-	private ArrayList<JTable> tables;
+	private HashMap<String,Integer> commande;
 	private JLabel lblCommande;
-	private JTable table;
-	private JTable table_1;
+	private JTable etalageTable;
+	private JTable commandeTable;
+	private JButton btnVendre;
+	private JLabel lblPrixLabel;
+	private JLabel lblPrixDisplay;
+	private JLabel lblArgentClient;
+	private JTextField textFieldArgentClient;
+	private JButton btnRetirer;
 
 	/**
 	 * Create the frame.
@@ -89,8 +95,8 @@ public class JFrameVendre extends JFrame {
 		lblUnite.setBounds(1044, 241, 210, 36);
 		panel.add(lblUnite);
 		
-		textField = new JTextField();
-		textField.getDocument().addDocumentListener(new DocumentListener() {
+		textFieldNbrProduit = new JTextField();
+		textFieldNbrProduit.getDocument().addDocumentListener(new DocumentListener() {
 			public void insertUpdate(DocumentEvent e) {
 				changementTextField();
 			}
@@ -102,9 +108,9 @@ public class JFrameVendre extends JFrame {
 			}
 		});
 
-		textField.setBounds(850, 241, 184, 36);
-		panel.add(textField);
-		textField.setColumns(10);
+		textFieldNbrProduit.setBounds(850, 241, 184, 36);
+		panel.add(textFieldNbrProduit);
+		textFieldNbrProduit.setColumns(10);
 		
 		btnAjouter = new JButton("Ajouter");
 		btnAjouter.addActionListener(new ActionListener() {
@@ -113,7 +119,7 @@ public class JFrameVendre extends JFrame {
 			}
 		});
 		btnAjouter.setFont(new Font("Arial", Font.PLAIN, 30));
-		btnAjouter.setBounds(850, 331, 184, 52);
+		btnAjouter.setBounds(721, 331, 184, 52);
 		panel.add(btnAjouter);
 		
 		btnRetour = new JButton("Retour");
@@ -131,11 +137,11 @@ public class JFrameVendre extends JFrame {
 		lblCommande.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCommande.setFont(new Font("Arial", Font.PLAIN, 25));
 		lblCommande.setBackground(Color.WHITE);
-		lblCommande.setBounds(724, 437, 530, 40);
+		lblCommande.setBounds(10, 437, 530, 40);
 		panel.add(lblCommande);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		etalageTable = new JTable();
+		etalageTable.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null},
 				{null, null},
@@ -158,18 +164,18 @@ public class JFrameVendre extends JFrame {
 				return columnEditables[column];
 			}
 		});
-		table.getColumnModel().getColumn(0).setResizable(false);
-		table.getColumnModel().getColumn(1).setResizable(false);
-		table.setRowSelectionAllowed(false);
-		table.setRowHeight(40);
-		table.setFont(new Font("Arial", Font.PLAIN, 25));
-		table.setFillsViewportHeight(true);
-		table.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table.setBounds(77, 253, 403, 119);
-		panel.add(table);
+		etalageTable.getColumnModel().getColumn(0).setResizable(false);
+		etalageTable.getColumnModel().getColumn(1).setResizable(false);
+		etalageTable.setRowSelectionAllowed(false);
+		etalageTable.setRowHeight(40);
+		etalageTable.setFont(new Font("Arial", Font.PLAIN, 25));
+		etalageTable.setFillsViewportHeight(true);
+		etalageTable.setBorder(new LineBorder(new Color(0, 0, 0)));
+		etalageTable.setBounds(77, 253, 403, 119);
+		panel.add(etalageTable);
 		
-		table_1 = new JTable();
-		table_1.setModel(new DefaultTableModel(
+		commandeTable = new JTable();
+		commandeTable.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null},
 				{null, null},
@@ -192,84 +198,118 @@ public class JFrameVendre extends JFrame {
 				return columnEditables[column];
 			}
 		});
-		table_1.getColumnModel().getColumn(0).setResizable(false);
-		table_1.getColumnModel().getColumn(1).setResizable(false);
-		table_1.setRowSelectionAllowed(false);
-		table_1.setRowHeight(40);
-		table_1.setFont(new Font("Arial", Font.PLAIN, 25));
-		table_1.setFillsViewportHeight(true);
-		table_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table_1.setBounds(791, 488, 403, 119);
-		panel.add(table_1);
+		commandeTable.getColumnModel().getColumn(0).setResizable(false);
+		commandeTable.getColumnModel().getColumn(1).setResizable(false);
+		commandeTable.setRowSelectionAllowed(false);
+		commandeTable.setRowHeight(40);
+		commandeTable.setFont(new Font("Arial", Font.PLAIN, 25));
+		commandeTable.setFillsViewportHeight(true);
+		commandeTable.setBorder(new LineBorder(new Color(0, 0, 0)));
+		commandeTable.setBounds(77, 488, 403, 119);
+		panel.add(commandeTable);
+		
+		btnVendre = new JButton("Vendre");
+		btnVendre.setFont(new Font("Arial", Font.PLAIN, 30));
+		btnVendre.setBounds(812, 516, 184, 52);
+		panel.add(btnVendre);
+		
+		lblPrixLabel = new JLabel("Prix :");
+		lblPrixLabel.setFont(new Font("Arial", Font.PLAIN, 25));
+		lblPrixLabel.setBounds(77, 618, 73, 33);
+		panel.add(lblPrixLabel);
+		
+		lblPrixDisplay = new JLabel("");
+		lblPrixDisplay.setFont(new Font("Arial", Font.PLAIN, 25));
+		lblPrixDisplay.setBounds(183, 618, 297, 33);
+		panel.add(lblPrixDisplay);
+		
+		lblArgentClient = new JLabel("Argent du client");
+		lblArgentClient.setFont(new Font("Arial", Font.PLAIN, 25));
+		lblArgentClient.setBounds(542, 488, 210, 30);
+		panel.add(lblArgentClient);
+		
+		textFieldArgentClient = new JTextField();
+		textFieldArgentClient.setFont(new Font("Arial", Font.PLAIN, 25));
+		textFieldArgentClient.setBounds(527, 526, 210, 40);
+		panel.add(textFieldArgentClient);
+		textFieldArgentClient.setColumns(10);
+		
+		btnRetirer = new JButton("Retirer");
+		btnRetirer.setFont(new Font("Arial", Font.PLAIN, 30));
+		btnRetirer.setBounds(945, 331, 184, 52);
+		panel.add(btnRetirer);
 	}
 	
 	
+		//===============//
+		//Intitialisation//
+		//===============//
 	
-	//Intitialisation
 		public void initialisation(DialogueBoulangerie dialogue) {
 			this.dialogueBoulangerie = dialogue;
 			dialogueBoulangerie.comboBoxProduitsUpdate(comboBoxRecette);
-			btnAjouter.setEnabled(false);
-			comboBoxRecette.setSelectedIndex(0);
-			textField.setText("");
-			arrayInit();
-			dialogueBoulangerie.stockArrayUpdate(tables);
-			resetColors();
+			resetAchat();
 		}
 		
-		//Les méthodes
+		//===============//
+		//Boutons cliqués//
+		//===============//
+		
 		protected void do_btnRetour_actionPerformed(ActionEvent e) {
-			resetColors();
 			btnAjouter.setEnabled(false);
 			dialogueBoulangerie.retour(this);
 		}
 
 		protected void do_btnValider_actionPerformed(ActionEvent e) {
 			String recette = comboBoxRecette.getItemAt(comboBoxRecette.getSelectedIndex()).toString();
-			int qty = Integer.valueOf(textField.getText());
+			int qty = Integer.valueOf(textFieldNbrProduit.getText());
 			dialogueBoulangerie.depenseIngredients(recette,qty);
 		}
 		
-		//Vérifie qu'il y a des chiffres pour valider
+		protected void do_comboBoxRecette_actionPerformed(ActionEvent e) {
+			changementTextField();
+		}
+		
+		//============//
+		//Les méthodes//
+		//============//
+
+		
+		//Vérifie qu'il y a des chiffres positifs pour ajouter
 		public void changementTextField() {
-			int length = textField.getDocument().getLength();
-			if(length>=1 && testInt(textField.getText())) {
-				if(enoughtIngredient() && Integer.parseInt(textField.getText()) !=0) {
-					btnAjouter.setEnabled(true);
-				}else {
-					btnAjouter.setEnabled(false);
-				}
+			int length = textFieldNbrProduit.getDocument().getLength();
+			if(length>=1 && dialogueBoulangerie.testInteger(textFieldNbrProduit.getText())) {
+				btnAjouter.setEnabled(enoughtProducts());
 			}else {
 				btnAjouter.setEnabled(false);
 			}
-			
 		}
 		
-		//Vérifie qu'il n'y a que des integers dans le texte
-		private boolean testInt(String text) {
-		      try {
-		         Integer.parseInt(text);
-		         return true;
-		      } catch (NumberFormatException e) {
-		         return false;
-		      }
+		//Vérifie qu'il y a des chiffres positifs pour retirer
+		public void changementRetirer() {
+			int length = textFieldArgentClient.getDocument().getLength();
+			if(length>=1 && dialogueBoulangerie.testDouble(textFieldNbrProduit.getText())) {
+				btnAjouter.setEnabled(enoughtProducts());
+			}else {
+				btnAjouter.setEnabled(false);
+			}
 		}
-		
-		//Vérifie qu'il y a assez d'ingredients pour activer valider
-		private boolean enoughtIngredient() {
-			String text = comboBoxRecette.getItemAt(comboBoxRecette.getSelectedIndex()).toString();
-			int qty = Integer.parseInt(textField.getText());
-			return dialogueBoulangerie.enoughtIngredients(tables, text, qty);
+
+		//Vérifie qu'il y a assez de produits
+		private boolean enoughtProducts() {
+			String nomProduit = comboBoxRecette.getItemAt(comboBoxRecette.getSelectedIndex()).toString();
+			int qty = Integer.parseInt(textFieldNbrProduit.getText());
+			return dialogueBoulangerie.enoughtProducts(nomProduit, qty);
 		}
 		
 		//Affiche les différents types d'erreur
-		public boolean errorDisplay(int numError) {
+		public boolean errorDisplay(int numError, double rendu) {
 			switch (numError) {
 			case 1: {
-				JOptionPane.showMessageDialog(this,"La boulangerie n'a pas assez de fonds","Probleme de fonds",JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this,"La boulangerie n'a pas assez de monnaie à rendre","Probleme de fonds",JOptionPane.ERROR_MESSAGE);
 				return false;
 			}case 2:{
-				int retour = JOptionPane.showConfirmDialog(this,"Etes vous sur ?","Validation",JOptionPane.OK_CANCEL_OPTION);
+				int retour = JOptionPane.showConfirmDialog(this,"Rendez : " + rendu+ " euros","Validation",JOptionPane.OK_CANCEL_OPTION);
 				if(retour==0) {
 					return true;
 				}else {
@@ -280,28 +320,31 @@ public class JFrameVendre extends JFrame {
 				throw new IllegalArgumentException("Unexpected value: " + numError);
 			}
 		}
-		
-		//JTable stock update
-		public void jtableStockUpdate() {
-			dialogueBoulangerie.stockArrayUpdate(tables);
-		}
+
 		
 		//Reset achat
 		public void resetAchat() {
 			comboBoxRecette.setSelectedIndex(0);
-			textField.setText("");
-			resetColors();
+			textFieldNbrProduit.setText("");
+			textFieldArgentClient.setText("");
+			resetCommande();
+			btnAjouter.setEnabled(false);
+			btnRetirer.setEnabled(false);
+			btnVendre.setEnabled(false);
+			
 		}
 		
-		//Reset couleurs
-		public void resetColors() {
-			for(int i =0;i<tables.size();i++) {
-				tables.get(i).setBackground(Color.white);
-			}
+		//Reset la commande
+		public void resetCommande() {
+			commandeTable.setValueAt(0, 0, 1);
+			commandeTable.setValueAt(0, 1, 1);
+			commandeTable.setValueAt(0, 2, 1);
+			commandeTable.setValueAt("Baguette", 0, 0);
+			commandeTable.setValueAt("Chocolatine", 1, 0);
+			commandeTable.setValueAt("Croissant", 2, 0);
 		}
+		
 		
 
-	protected void do_comboBoxRecette_actionPerformed(ActionEvent e) {
-		changementTextField();
-	}
+	
 }

@@ -1,7 +1,5 @@
 package presentation;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -23,10 +21,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.event.AncestorListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.event.AncestorEvent;
 
 public class JFrameAcheterIngredients extends JFrame {
 
@@ -160,7 +156,10 @@ public class JFrameAcheterIngredients extends JFrame {
 		panel.add(btnRetour);
 	}
 	
-	//Intitialisation
+	//===============//
+	//Intitialisation//
+	//===============//
+	
 	public void initialisation(DialogueBoulangerie dialogue) {
 		this.dialogueBoulangerie = dialogue;
 		tableauUnite = dialogueBoulangerie.comboBoxIngredientsUpdate(comboBoxIngredient);
@@ -170,7 +169,10 @@ public class JFrameAcheterIngredients extends JFrame {
 		textField.setText("");
 	}
 	
-	//Les méthodes
+	
+	//===================//
+	//Les boutons cliqués//
+	//===================//
 	protected void do_btnRetour_actionPerformed(ActionEvent e) {
 		dialogueBoulangerie.retour(this);
 	}
@@ -184,25 +186,20 @@ public class JFrameAcheterIngredients extends JFrame {
 		dialogueBoulangerie.acheterIngredients(ingredient,qty);
 	}
 	
-	//Vérifie qu'il y a des chiffres pour valider
+	//============//
+	//Les Méthodes//
+	//============//
+	
+	//Vérifie qu'il y a des doubles supérieurs à 0 pour valider
 	protected void changementTextField() {
 		int length = textField.getDocument().getLength();
-		if(length>=1 && testDouble(textField.getText())) {
-			btnValider.setEnabled(true);
+		if(length>=1) {
+			btnValider.setEnabled(dialogueBoulangerie.testDouble(textField.getText()));
 		}else {
 			btnValider.setEnabled(false);
 		}
 	}
 	
-	//Vérifie qu'il n'y a que des double dans le text
-	private boolean testDouble(String text) {
-	      try {
-	         Double.parseDouble(text);
-	         return true;
-	      } catch (NumberFormatException e) {
-	         return false;
-	      }
-	}
 	
 	//Affiche les différents types d'erreur
 	public boolean errorDisplay(int numError) {

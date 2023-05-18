@@ -1,13 +1,14 @@
 package boundaries;
 
+import batiment.Boulangerie;
 import controleur.ControlVente;
 
 public class BoundaryVente {
 	private ControlVente controlVente;
 	
 	//Constructeur
-	public BoundaryVente(ControlVente controlVente) {
-		this.controlVente = controlVente;
+	public BoundaryVente(Boulangerie boulangerie) {
+		this.controlVente = new ControlVente(boulangerie);
 	}
 	
 	

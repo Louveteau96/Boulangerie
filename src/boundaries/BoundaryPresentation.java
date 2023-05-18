@@ -1,5 +1,6 @@
 package boundaries;
 
+import batiment.Boulangerie;
 import controleur.ControlPresentation;
 
 public class BoundaryPresentation {
@@ -7,8 +8,8 @@ public class BoundaryPresentation {
 	private ControlPresentation controlPresentation;
 	
 	//Constructeur
-	public BoundaryPresentation(ControlPresentation controlPresentation) {
-		this.controlPresentation = controlPresentation;
+	public BoundaryPresentation(Boulangerie boulangerie) {
+		this.controlPresentation = new ControlPresentation(boulangerie);
 	}
 
 	//Méthodes

@@ -1,5 +1,7 @@
 package controleur;
 
+import java.util.HashMap;
+
 import batiment.Boulangerie;
 import personnes.*;
 
@@ -38,5 +40,13 @@ public class ControlGestionEmploye {
 	public Employe getMetier(String nom) {
 		nom=nom.toLowerCase();
 		return boulangerie.getEmploye(nom);
+	}
+	
+	public HashMap<String,Double> getRecipe(String nomEmploye,String recetteNom){
+		return getMetier(nomEmploye).getRecipe(recetteNom);
+	}
+	
+	public HashMap<String, Integer> getProductsDone(String nomEmploye){
+		return getMetier(nomEmploye).getProductDone();
 	}
 }

@@ -51,48 +51,13 @@ public class Boulanger implements Employe{
 		produitCuisine.put(CROISSANT, 0);
 
 	}
-	
-	//Le boulanger cuisine une quantité de produit
-	public void ConsommerIngredients(String recette,int qty) {
-		for (HashMap.Entry<String, Double> entry : recettes.get(recette).entrySet()) {
-			String key = entry.getKey();
-			Double val = entry.getValue()*qty;
-			this.boulangerie.depenseIngredient(key,val);
-		}
-		double qtyProduit = 0.0 + qty;
-		this.boulangerie.ajoutProduit(recette, qtyProduit);
-		produitCuisine.put(recette, produitCuisine.get(recette)+qty);
-	}
-	
-	//Le récap de produits cuisinés par le boulanger
-	public StringBuilder recapitulatif() {
-		StringBuilder recap = new StringBuilder();
-		recap.append("Moi "+nom+" j'ai cuisiné : \n");
-		for (HashMap.Entry<String, Integer> entry : produitCuisine.entrySet()) {
-			String key = entry.getKey();
-			Integer val = entry.getValue();
-			recap.append(key + " : " +val + "\n");
-		}
-		return recap;
-	}
-	
-	//Le boulanger achete des Ingredients
-	@Override
-	public void acheterIngredients(String ingredient, Double qty) {
-		
-	}
-	
+
 	//Le boulanger donne sa map de produits cuisinés
 	@Override
 	public HashMap<String, Integer> getProductDone(){
 		return this.produitCuisine;
 	}
 	
-	//Le boulanger se présente
-	@Override
-	public String presentation() {
-		return "Bonjour je suis " + nom + " je suis boulanger";
-	}
 	
 	//Métier du boulanger
 	@Override

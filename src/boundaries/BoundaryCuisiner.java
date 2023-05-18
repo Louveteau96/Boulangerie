@@ -1,5 +1,6 @@
 package boundaries;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JTable;
@@ -16,11 +17,14 @@ public class BoundaryCuisiner {
 	//Les méthodes
 	
 	//Colorie les cases et dit si il y a assez d'ingredients
-	public boolean enoughtIngredients(HashMap<String,Double> recette, int qty,JTable jtable) {
-		controlCuisiner.setJTable(jtable);
+	public boolean enoughtIngredients(HashMap<String,Double> recette, int qty,ArrayList<JTable> tables) {
+		controlCuisiner.setJTable(tables);
 		return controlCuisiner.enoughtIngredients(recette, qty);
 	}
 	
 	//Dépense les ingredients
+	public void depenserIngredients(HashMap<String,Double> recette, int qty) {
+		controlCuisiner.useIngredients(recette, qty);
+	}
 
 }

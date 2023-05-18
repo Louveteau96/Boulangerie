@@ -1,10 +1,10 @@
 package presentation;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -31,13 +31,21 @@ public class JFrameCuisiner extends JFrame {
 	private JPanel contentPane;
 	private JPanel panel;
 	private JLabel lblCuisiner;
-	private JTable tableStock;
 	private JLabel lblStock;
 	private JComboBox comboBoxRecette;
 	private JLabel lblUnite;
 	private JTextField textField;
 	private JButton btnValider;
 	private JButton btnRetour;
+	private JTable table_0;
+	private JTable table_1;
+	private JTable table_3;
+	private JTable table_2;
+	private JTable table_4;
+	private JTable table_5;
+	private JTable table_6;
+	private JTable table_7;
+	private ArrayList<JTable> tables;
 
 	/**
 	 * Create the frame.
@@ -62,30 +70,6 @@ public class JFrameCuisiner extends JFrame {
 		lblCuisiner.setBounds(370, 11, 626, 221);
 		panel.add(lblCuisiner);
 		
-		tableStock = new JTable();
-		tableStock.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-			},
-			new String[] {
-				"New column", "New column", "New column"
-			}
-		));
-		tableStock.setRowSelectionAllowed(false);
-		tableStock.setRowHeight(40);
-		tableStock.setFont(new Font("Arial", Font.PLAIN, 25));
-		tableStock.setFillsViewportHeight(true);
-		tableStock.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tableStock.setBounds(10, 244, 520, 320);
-		panel.add(tableStock);
-		
 		lblStock = new JLabel("Stock");
 		lblStock.setHorizontalAlignment(SwingConstants.CENTER);
 		lblStock.setFont(new Font("Arial", Font.PLAIN, 25));
@@ -94,6 +78,11 @@ public class JFrameCuisiner extends JFrame {
 		panel.add(lblStock);
 		
 		comboBoxRecette = new JComboBox();
+		comboBoxRecette.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_comboBoxRecette_actionPerformed(e);
+			}
+		});
 		comboBoxRecette.setModel(new DefaultComboBoxModel(new String[] {""}));
 
 		comboBoxRecette.setBounds(684, 241, 156, 36);
@@ -142,6 +131,198 @@ public class JFrameCuisiner extends JFrame {
 		btnRetour.setFont(new Font("Arial", Font.PLAIN, 30));
 		btnRetour.setBounds(492, 797, 260, 121);
 		panel.add(btnRetour);
+		
+		table_0 = new JTable();
+		table_0.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null},
+			},
+			new String[] {
+				"Ingrd\u00E9dient", "Quantit\u00E9", "Unite"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				String.class, Double.class, String.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		table_0.setRowSelectionAllowed(false);
+		table_0.setRowHeight(40);
+		table_0.setFont(new Font("Arial", Font.PLAIN, 25));
+		table_0.setFillsViewportHeight(true);
+		table_0.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table_0.setBounds(10, 244, 520, 40);
+		panel.add(table_0);
+		
+		table_1 = new JTable();
+		table_1.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null},
+			},
+			new String[] {
+				"Ingrd\u00E9dient", "Quantit\u00E9", "Unite"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				String.class, Double.class, String.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		table_1.setRowSelectionAllowed(false);
+		table_1.setRowHeight(40);
+		table_1.setFont(new Font("Arial", Font.PLAIN, 25));
+		table_1.setFillsViewportHeight(true);
+		table_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table_1.setBounds(10, 283, 520, 40);
+		panel.add(table_1);
+		
+		table_3 = new JTable();
+		table_3.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null},
+			},
+			new String[] {
+				"Ingrd\u00E9dient", "Quantit\u00E9", "Unite"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				String.class, Double.class, String.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		table_3.setRowSelectionAllowed(false);
+		table_3.setRowHeight(40);
+		table_3.setFont(new Font("Arial", Font.PLAIN, 25));
+		table_3.setFillsViewportHeight(true);
+		table_3.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table_3.setBounds(10, 362, 520, 40);
+		panel.add(table_3);
+		
+		table_2 = new JTable();
+		table_2.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null},
+			},
+			new String[] {
+				"Ingrd\u00E9dient", "Quantit\u00E9", "Unite"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				String.class, Double.class, String.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		table_2.setRowSelectionAllowed(false);
+		table_2.setRowHeight(40);
+		table_2.setFont(new Font("Arial", Font.PLAIN, 25));
+		table_2.setFillsViewportHeight(true);
+		table_2.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table_2.setBounds(10, 323, 520, 40);
+		panel.add(table_2);
+		
+		table_4 = new JTable();
+		table_4.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null},
+			},
+			new String[] {
+				"Ingrd\u00E9dient", "Quantit\u00E9", "Unite"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				String.class, Double.class, String.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		table_4.setRowSelectionAllowed(false);
+		table_4.setRowHeight(40);
+		table_4.setFont(new Font("Arial", Font.PLAIN, 25));
+		table_4.setFillsViewportHeight(true);
+		table_4.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table_4.setBounds(10, 402, 520, 40);
+		panel.add(table_4);
+		
+		table_5 = new JTable();
+		table_5.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null},
+			},
+			new String[] {
+				"Ingrd\u00E9dient", "Quantit\u00E9", "Unite"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				String.class, Double.class, String.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		table_5.setRowSelectionAllowed(false);
+		table_5.setRowHeight(40);
+		table_5.setFont(new Font("Arial", Font.PLAIN, 25));
+		table_5.setFillsViewportHeight(true);
+		table_5.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table_5.setBounds(10, 441, 520, 40);
+		panel.add(table_5);
+		
+		table_6 = new JTable();
+		table_6.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null},
+			},
+			new String[] {
+				"Ingrd\u00E9dient", "Quantit\u00E9", "Unite"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				String.class, Double.class, String.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		table_6.setRowSelectionAllowed(false);
+		table_6.setRowHeight(40);
+		table_6.setFont(new Font("Arial", Font.PLAIN, 25));
+		table_6.setFillsViewportHeight(true);
+		table_6.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table_6.setBounds(10, 481, 520, 40);
+		panel.add(table_6);
+		
+		table_7 = new JTable();
+		table_7.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null},
+			},
+			new String[] {
+				"Ingrd\u00E9dient", "Quantit\u00E9", "Unite"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				String.class, Double.class, String.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		table_7.setRowSelectionAllowed(false);
+		table_7.setRowHeight(40);
+		table_7.setFont(new Font("Arial", Font.PLAIN, 25));
+		table_7.setFillsViewportHeight(true);
+		table_7.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table_7.setBounds(10, 520, 520, 40);
+		panel.add(table_7);
 	}
 	
 	
@@ -149,33 +330,41 @@ public class JFrameCuisiner extends JFrame {
 	//Intitialisation
 		public void initialisation(DialogueBoulangerie dialogue) {
 			this.dialogueBoulangerie = dialogue;
-			dialogueBoulangerie.stockUpdate(tableStock);
 			dialogueBoulangerie.comboBoxProduitsUpdate(comboBoxRecette);
 			btnValider.setEnabled(false);
 			comboBoxRecette.setSelectedIndex(0);
 			textField.setText("");
+			arrayInit();
+			dialogueBoulangerie.stockArrayUpdate(tables);
+			resetColors();
 		}
 		
 		//Les méthodes
 		protected void do_btnRetour_actionPerformed(ActionEvent e) {
+			resetColors();
+			btnValider.setEnabled(false);
 			dialogueBoulangerie.retour(this);
 		}
 
 		protected void do_btnValider_actionPerformed(ActionEvent e) {
 			String recette = comboBoxRecette.getItemAt(comboBoxRecette.getSelectedIndex()).toString();
-			Double qty = Double.valueOf(textField.getText());
+			int qty = Integer.valueOf(textField.getText());
 			dialogueBoulangerie.depenseIngredients(recette,qty);
 		}
 		
 		//Vérifie qu'il y a des chiffres pour valider
-		protected void changementTextField() {
+		public void changementTextField() {
 			int length = textField.getDocument().getLength();
 			if(length>=1 && testInt(textField.getText())) {
-				if(enoughtIngredient()) {
+				if(enoughtIngredient() && Integer.parseInt(textField.getText()) !=0) {
 					btnValider.setEnabled(true);
+				}else {
+					btnValider.setEnabled(false);
 				}
+			}else {
+				btnValider.setEnabled(false);
 			}
-			btnValider.setEnabled(false);
+			
 		}
 		
 		//Vérifie qu'il n'y a que des integers dans le texte
@@ -192,7 +381,7 @@ public class JFrameCuisiner extends JFrame {
 		private boolean enoughtIngredient() {
 			String text = comboBoxRecette.getItemAt(comboBoxRecette.getSelectedIndex()).toString();
 			int qty = Integer.parseInt(textField.getText());
-			return dialogueBoulangerie.enoughtIngredients(tableStock, text, qty);
+			return dialogueBoulangerie.enoughtIngredients(tables, text, qty);
 		}
 		
 		//Affiche les différents types d'erreur
@@ -219,18 +408,36 @@ public class JFrameCuisiner extends JFrame {
 		
 		//JTable stock update
 		public void jtableStockUpdate() {
-			dialogueBoulangerie.stockUpdate(tableStock);
+			dialogueBoulangerie.stockArrayUpdate(tables);
 		}
 		
 		//Reset achat
 		public void resetAchat() {
 			comboBoxRecette.setSelectedIndex(0);
 			textField.setText("");
+			resetColors();
 		}
 		
 		//Reset couleurs
 		public void resetColors() {
-			
+			for(int i =0;i<tables.size();i++) {
+				tables.get(i).setBackground(Color.white);
+			}
 		}
-
+		
+		//Initialiste la arrayList de table
+		private void arrayInit(){
+			this.tables = new ArrayList<JTable>();
+			this.tables.add(table_0);
+			this.tables.add(table_1);
+			this.tables.add(table_2);
+			this.tables.add(table_3);
+			this.tables.add(table_4);
+			this.tables.add(table_5);
+			this.tables.add(table_6);
+			this.tables.add(table_7);	
+		}
+	protected void do_comboBoxRecette_actionPerformed(ActionEvent e) {
+		changementTextField();
+	}
 }

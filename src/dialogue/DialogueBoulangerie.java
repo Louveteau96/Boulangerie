@@ -1,5 +1,6 @@
 package dialogue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.DefaultComboBoxModel;
@@ -34,6 +35,7 @@ public class DialogueBoulangerie {
 	private JFrameBoulanger presentationBoulanger = new JFrameBoulanger();
 	private JFrameAcheterIngredients presentationAcheterIngredients = new JFrameAcheterIngredients();
 	private JFrameCuisiner presentationCuisiner = new JFrameCuisiner();
+	private JFrameVendre presentationVendre = new JFrameVendre();
 	
 	
 	//Constructeur
@@ -107,6 +109,7 @@ public class DialogueBoulangerie {
 		presentationMetier.setVisible(false);
 		presentationCaissier.setDialogue(this);
 		presentationCaissier.setVisible(true);
+		presentationCaissier.initialisation();
 		
 	}
 	
@@ -151,6 +154,14 @@ public class DialogueBoulangerie {
 		presentationCuisiner.initialisation(this);
 		
 	}
+	  //===========================//
+	 //Changement JFrame Vendre //
+	//===========================//	
+	public void changementJFrameVendre() {
+		presentationCaissier.setVisible(false);
+		presentationVendre.setVisible(true);
+		presentationVendre.initialisation(this);
+	}
 	
 	
 	
@@ -185,6 +196,20 @@ public class DialogueBoulangerie {
 		}
 	}
 	
+	//Mise à jour des infos de l'étalage
+	public void etalageUpdate(JTable tableProduit) {
+		int i =0;
+		HashMap<String,Double> produitMap = controlStock.getEtalageMap();
+		tableProduit.getModel();
+		for (HashMap.Entry<String, Double> entry : produitMap.entrySet()) {
+			String key = entry.getKey();
+			Double val = entry.getValue();
+			tableProduit.setValueAt(key, i, 0);
+			tableProduit.setValueAt(val, i, 1);
+			i++;
+		}
+	}
+	
 	//Mise à jour des ingredients d'un combobox
 	public String[] comboBoxIngredientsUpdate(JComboBox combobox) {
 		int i =0;
@@ -202,7 +227,7 @@ public class DialogueBoulangerie {
 		return tableauUnite;
 	}
 	
-	//Mise à jours des produits d'un combobox
+	//Mise à jour des produits d'un combobox
 	public void comboBoxProduitsUpdate(JComboBox combobox) {
 		int i =0;
 		HashMap<String,Double> produitMap = controlStock.getEtalageMap();
@@ -213,6 +238,22 @@ public class DialogueBoulangerie {
 			i++;
 		}
 		combobox.setModel(new DefaultComboBoxModel(newComboBox));
+	}
+	
+	//Mise à jour des ingrédients d'une arrayList de JTable
+	public void stockArrayUpdate(ArrayList<JTable> tables) {
+		int i =0;
+		HashMap<String,Double> stockMap = controlStock.getStockMap();
+		HashMap<String,String> uniteMap = controlStock.getStockUnite();
+		for (HashMap.Entry<String, Double> entry : stockMap.entrySet()) {
+			String key = entry.getKey();
+			Double val = entry.getValue();
+			String unite = uniteMap.get(key);
+			tables.get(i).setValueAt(key, 0, 0);
+			tables.get(i).setValueAt(val, 0, 1);
+			tables.get(i).setValueAt(unite, 0, 2);
+			i++;
+		}
 	}
 	
 	//Acheter les ingrédients
@@ -228,14 +269,33 @@ public class DialogueBoulangerie {
 	}
 	
 	//Depsense les ingrédients
-	public void depenseIngredients() {
+	public void depenseIngredients(String recetteNom, int qty) {
+		int error = 2;
+		boolean valider = presentationCuisiner.errorDisplay(error);
+		if(valider) {
+			HashMap<String,Double> recette = controlGestionEmploye.getMetier(employe).getRecipe(recetteNom);
+			boundaryCuisiner.depenserIngredients(recette, qty);
+			presentationCuisiner.jtableStockUpdate();
+			presentationCuisiner.changementTextField();
+			
+			//Mise à jour des infos pour le boulanger
+			HashMap<String, Integer> productsDone= controlGestionEmploye.getMetier(employe).getProductDone();
+			int qtyDejaFaite = productsDone.get(recetteNom);
+			productsDone.put(recetteNom, qtyDejaFaite+qty);
+			
+			//Mise à jour de l'étalage
+			HashMap<String,Double> mapEtalage = controlStock.getEtalageMap();
+			mapEtalage.put(recetteNom, qty*1.0);
+		}else {
+			presentationCuisiner.resetAchat();
+		}
 		
 	}
 	
 	//Met à jour les couleurs du tableau
-	public boolean enoughtIngredients(JTable jtable, String recipe,int qty) {
-		HashMap<String,Double> recette = controlGestionEmploye.getMetier(employe).getRecipe(recipe);
-		return boundaryCuisiner.enoughtIngredients(recette,qty,jtable);
+	public boolean enoughtIngredients(ArrayList<JTable> tables, String recetteNom,int qty) {
+		HashMap<String,Double> recette = controlGestionEmploye.getMetier(employe).getRecipe(recetteNom);
+		return boundaryCuisiner.enoughtIngredients(recette,qty,tables);
 	}
 
 }

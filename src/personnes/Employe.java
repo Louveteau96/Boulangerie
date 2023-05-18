@@ -18,10 +18,6 @@ public interface Employe {
 	
 
 	//Les methodes
-	
-	public void acheterIngredients(String ingredient, Double qty);
-	
-	public String presentation();
 
 	public String metier();
 	

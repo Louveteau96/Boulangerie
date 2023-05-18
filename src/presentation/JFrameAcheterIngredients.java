@@ -79,9 +79,17 @@ public class JFrameAcheterIngredients extends JFrame {
 				{null, null, null},
 			},
 			new String[] {
-				"New column", "New column", "New column"
+				"Ingredient", "Quantit\u00E9", "Unit\u00E9"
 			}
-		));
+		) {
+			Class[] columnTypes = new Class[] {
+				String.class, Double.class, String.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		tableStock.getColumnModel().getColumn(0).setResizable(false);
 		tableStock.setRowSelectionAllowed(false);
 		tableStock.setRowHeight(40);
 		tableStock.setFont(new Font("Arial", Font.PLAIN, 25));

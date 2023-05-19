@@ -23,5 +23,7 @@ public interface Employe {
 	
 	public HashMap<String, Integer> getProductDone();
 	
+	public void setProductDone(HashMap<String, Integer> mapProductDone);
+	
 	public HashMap<String,Double> getRecipe(String recipe);
 }

@@ -119,6 +119,10 @@ public class Boulangerie {
 	public void removeEmploye(String nom) {
 		employes.remove(nom);
 	}
+	
+	public HashMap<String,Employe> getEmployeMap(){
+		return this.employes;
+	}
 
 	
 //=====================================================================//

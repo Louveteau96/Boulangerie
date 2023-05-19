@@ -16,4 +16,12 @@ public class BoundaryVente {
 	public double priceUpdate(int qtyChocolatine,int qtyCroissant, int qtyBaguette) {
 		return controlVente.getPrice(qtyChocolatine, qtyCroissant, qtyBaguette);
 	}
+	
+	public void perdreArgent(double perte) {
+		controlVente.perdreArgent(perte);
+	}
+	
+	public boolean enoughtArgent(double perte) {
+		return controlVente.enoughtArgent(perte);
+	}
 }

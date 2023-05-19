@@ -24,8 +24,8 @@ public class ControlStock {
 		return boulangerie.getEtalageMap();
 	}
 	
-	public HashMap<String,Integer> getProductDone(String nom){
-		return boulangerie.getEmploye(nom).getProductDone();
+	public HashMap<String,Integer> getProductDone(String nomEmploye){
+		return boulangerie.getEmploye(nomEmploye).getProductDone();
 	}
 	
 	//Vérifie si il y a assez de produits dans l'étalage

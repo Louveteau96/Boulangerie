@@ -21,12 +21,12 @@ public class ControlAcheterIngredients {
 		return boulangerie.ingredientExiste(ingredient);
 	}
 	
-	//
+	//Ajoute la quantité de l'ingrédient au stock
 	public void obtenirIngredients(String ingredient, Double qty) {
 		boulangerie.ajouterIngredient(ingredient, qty);
 	}
 	
-	//
+	//Enleve l'argent à la caisse correspondant a la quantité d'ingrédient voulu
 	public void depenserArgent(String ingredient, Double qty) {
 		Double perte = boulangerie.prixIngredient(ingredient)*qty;
 		boulangerie.perdreArgent(perte);

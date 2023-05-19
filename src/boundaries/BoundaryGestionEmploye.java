@@ -13,7 +13,10 @@ public class BoundaryGestionEmploye {
 		this.controlGestionEmploye = new ControlGestionEmploye(boulangerie);
 	}
 	
-	//Méthodes
+	//=============//
+	//Les méthodes //
+	//=============//
+	
 	public void ajouterEmploye(String nom,String metier) {
 		StringBuilder message = new StringBuilder();
 		if(controlGestionEmploye.isEmploye(nom)){
@@ -46,15 +49,16 @@ public class BoundaryGestionEmploye {
 	
 	//Getteur de recette
 	public HashMap<String,Double> getRecipe(String nomEmploye,String recetteNom){
-		nomEmploye = nomEmploye.toLowerCase();
-		recetteNom = recetteNom.toLowerCase();
 		return controlGestionEmploye.getRecipe(nomEmploye, recetteNom);
 	}
 	
 	//getteur des produits réalisés
 	public HashMap<String, Integer> getProductsDone(String nomEmploye){
-		nomEmploye = nomEmploye.toLowerCase();
 		return controlGestionEmploye.getProductsDone(nomEmploye);
 	}
-
+	
+	//Ajoute au boulanger ses produits faits
+	public void addProductsDone(HashMap<String,Integer> productsDone,String nomEmploye) {
+		controlGestionEmploye.addProductsDone(productsDone, nomEmploye);
+	}
 }

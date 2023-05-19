@@ -369,7 +369,6 @@ public class JFrameCuisiner extends JFrame {
 		String recette = comboBoxRecette.getItemAt(comboBoxRecette.getSelectedIndex()).toString();
 		int qty = Integer.parseInt(textField.getText());
 		dialogueBoulangerie.depenseIngredients(recette,qty);
-		dialogueBoulangerie.ajouterProduit(recette, qty);
 	}
 	
 	protected void do_comboBoxRecette_actionPerformed(ActionEvent e) {

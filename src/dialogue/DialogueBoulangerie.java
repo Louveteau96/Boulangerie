@@ -146,16 +146,18 @@ public class DialogueBoulangerie {
 		presentationCuisiner.initialisation(this);
 		
 	}
-	  //===========================//
+	  //=========================//
 	 //Changement JFrame Vendre //
-	//===========================//	
+	//=========================//	
 	public void changementJFrameVendre() {
 		presentationCaissier.setVisible(false);
 		presentationVendre.setVisible(true);
 		presentationVendre.initialisation(this);
 	}
 	
-	
+	//=============//
+	//Les méthodes //
+	//=============//
 	
 	//Mise à jour des infos du stock
 	public void stockUpdate(JTable tableStock) {
@@ -271,13 +273,12 @@ public class DialogueBoulangerie {
 			presentationCuisiner.changementTextField();
 			
 			//Mise à jour des infos pour le boulanger
-			HashMap<String, Integer> productsDone= boundaryGestionEmploye.getProductsDone(employe);
-			int qtyDejaFaite = productsDone.get(recetteNom);
-			productsDone.put(recetteNom, qtyDejaFaite+qty);
+			HashMap<String,Integer> produitFait = new HashMap<>();
+			produitFait.put(recetteNom, qty);
+			boundaryGestionEmploye.addProductsDone(produitFait, employe);
 			
 			//Mise à jour de l'étalage
-			HashMap<String,Double> mapEtalage = boundaryStock.getEtalageMap();
-			mapEtalage.put(recetteNom, qty*1.0);
+			ajouterProduit(recetteNom, qty);
 		}else {
 			presentationCuisiner.resetAchat();
 		}
@@ -329,5 +330,16 @@ public class DialogueBoulangerie {
 	public void remiseEtal(HashMap<String,Integer> productsMap) {
 		boundaryStock.ajouterMapProduit(productsMap);
 	}
+	
+	//Fait perdre l'argent à la caisse
+	public void perdreArgent(double perte) {
+		boundaryVente.perdreArgent(perte);
+	}
+	
+	//Vérifie que la caisse a assez d'argent
+	public boolean enoughtArgent(double perte) {
+		return boundaryVente.enoughtArgent(perte);
+	}
+
 
 }

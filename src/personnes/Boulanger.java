@@ -58,6 +58,12 @@ public class Boulanger implements Employe{
 		return this.produitCuisine;
 	}
 	
+	@Override
+	public void setProductDone(HashMap<String, Integer> mapProductDone) {
+		this.produitCuisine=mapProductDone;
+		
+	}
+	
 	
 	//Métier du boulanger
 	@Override
@@ -80,5 +86,7 @@ public class Boulanger implements Employe{
 			return recetteCroissant;
 		}
 	}
+
+	
 
 }

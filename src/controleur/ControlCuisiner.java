@@ -110,6 +110,10 @@ public class ControlCuisiner {
 		}
 	}
 	
+	public ArrayList<JTable> getTable(){
+		return this.tables;
+	}
+	
 
 		
 

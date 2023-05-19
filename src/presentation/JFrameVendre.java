@@ -307,7 +307,12 @@ public class JFrameVendre extends JFrame {
 			
 		}
 		protected void do_btnVendre_actionPerformed(ActionEvent e) {
-			
+			if(erreur()) {
+				double argent = Double.parseDouble(textFieldArgentClient.getText());
+				dialogueBoulangerie.perdreArgent(-argent);
+				dialogueBoulangerie.perdreArgent(differenceArgent());
+				resetAchat();
+			}
 		}
 		
 		//============//
@@ -377,22 +382,28 @@ public class JFrameVendre extends JFrame {
 			return argent>=prix;
 		}
 		
+		//Vérifie que la boulangerie a assez de monnaie
+		public boolean enoughtRendu() {
+			double argent = Double.parseDouble(textFieldArgentClient.getText());
+			return dialogueBoulangerie.enoughtArgent(differenceArgent());
+		}
+		
+		//Donne la différence
+		public double differenceArgent() {
+			double prix = Double.parseDouble(lblPrixDisplay.getText());
+			double argent = Double.parseDouble(textFieldArgentClient.getText());
+			return argent-prix;
+		}
+		
 		//Affiche les différents types d'erreur
-		public boolean errorDisplay(int numError, double rendu) {
-			switch (numError) {
-			case 1: {
+		public boolean erreur() {
+			if(!enoughtRendu()) {
 				JOptionPane.showMessageDialog(this,"La boulangerie n'a pas assez de monnaie à rendre","Probleme de fonds",JOptionPane.ERROR_MESSAGE);
 				return false;
-			}case 2:{
+			}else {
+				double rendu = differenceArgent();
 				int retour = JOptionPane.showConfirmDialog(this,"Rendez : " + rendu+ " euros","Validation",JOptionPane.OK_CANCEL_OPTION);
-				if(retour==0) {
-					return true;
-				}else {
-					return false;
-				}
-			}
-			default:
-				throw new IllegalArgumentException("Unexpected value: " + numError);
+				return retour==0;
 			}
 		}
 

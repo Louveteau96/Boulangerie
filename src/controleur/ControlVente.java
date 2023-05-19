@@ -17,5 +17,14 @@ public class ControlVente {
 		prix += boulangerie.prixProduit("baguette")*qtyBaguette;
 		return prix;
 	}
+	
+	public void perdreArgent(double perte) {
+		boulangerie.perdreArgent(perte);
+	}
+	
+	public boolean enoughtArgent(double perte) {
+		double caisse = boulangerie.afficherArgent();
+		return caisse-perte>=0;
+	}
 
 }

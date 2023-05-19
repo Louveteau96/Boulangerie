@@ -164,11 +164,38 @@ public class JFrameBoulanger extends JFrame {
 		panel.add(btnDeconnexion);
 	}
 	
-	//Initialisation de JFrameBoulanger
+	
+	//===============//
+	//Initialisation //
+	//===============//
+	
 	public void initialisation() {
 		stockUpdate();
 		etalageUpdate();
 	}
+	
+	//Record reference to Dialogue
+	public void setDialogue(DialogueBoulangerie dialogueBoulangerie) {
+		this.dialogueBoulangerie = dialogueBoulangerie;
+	}
+	
+	//================//
+	//Boutons cliqués //
+	//================//
+	
+	protected void do_btnDeconnexion_actionPerformed(ActionEvent e) {
+		dialogueBoulangerie.deconnexion();
+	}
+	protected void do_btnAcheterIngredient_actionPerformed(ActionEvent e) {
+		dialogueBoulangerie.changementJFrameAcheterIngredients();
+	}
+	protected void do_btnCuisiner_actionPerformed(ActionEvent e) {
+		dialogueBoulangerie.changementJFrameCuisiner();
+	}
+	
+	//=============//
+	//Les méthodes //
+	//=============//
 	
 	//Mise des éléments de stock//
 	public void stockUpdate() {
@@ -180,17 +207,6 @@ public class JFrameBoulanger extends JFrame {
 			dialogueBoulangerie.productDoneUpdate(tableProduit);
 		}
 	
-	//Record reference to Dialogue
-	public void setDialogue(DialogueBoulangerie dialogueBoulangerie) {
-		this.dialogueBoulangerie = dialogueBoulangerie;
-	}
-	protected void do_btnDeconnexion_actionPerformed(ActionEvent e) {
-		dialogueBoulangerie.deconnexion();
-	}
-	protected void do_btnAcheterIngredient_actionPerformed(ActionEvent e) {
-		dialogueBoulangerie.changementJFrameAcheterIngredients();
-	}
-	protected void do_btnCuisiner_actionPerformed(ActionEvent e) {
-		dialogueBoulangerie.changementJFrameCuisiner();
-	}
+	
+	
 }

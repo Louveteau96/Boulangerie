@@ -1,0 +1,19 @@
+
+…
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(İ¨”HñRMINORZ
+CODE_SMELL
+
+java:S13198"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(—ƒ¶üÿÿÿÿHóRMINORZ
+CODE_SMELL
+
+java:S1319="mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(¯èåÿÿÿÿÿHöRMINORZ
+CODE_SMELL
+™
+java:S1319B"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(®šŠHùRMINORZ
+CODE_SMELL
+™
+java:S1319{"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(¬Åô¼HüRMINORZ
+CODE_SMELL
+`
+java:S2387†"1"uniteProduit" is the name of a field in "Stock".(‚œÙáHÿRBLOCKERZ
+CODE_SMELL

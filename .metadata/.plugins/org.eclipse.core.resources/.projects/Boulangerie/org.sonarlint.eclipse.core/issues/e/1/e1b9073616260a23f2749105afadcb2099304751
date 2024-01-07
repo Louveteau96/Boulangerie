@@ -1,0 +1,10 @@
+
+
+java:S1319"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(ûÁ£úÿÿÿÿHñRMINORZ
+CODE_SMELL
+—
+java:S1319"kThe type of "mapProductDone" should be an interface such as "Map" rather than the implementation "HashMap".(Ö°÷ÊHôRMINORZ
+CODE_SMELL
+
+java:S1319"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(ûèÁÿÿÿÿÿH÷RMINORZ
+CODE_SMELL

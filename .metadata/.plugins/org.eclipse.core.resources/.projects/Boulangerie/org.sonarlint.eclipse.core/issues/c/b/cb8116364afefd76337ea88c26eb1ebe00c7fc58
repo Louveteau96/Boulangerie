@@ -1,0 +1,10 @@
+
+•
+java:S1319"dThe type of "recette" should be an interface such as "Map" rather than the implementation "HashMap".(…è ÑúÿÿÿÿH€RMINORZ
+CODE_SMELL
+—
+java:S1319"fThe type of "tables" should be an interface such as "List" rather than the implementation "ArrayList".(…è ÑúÿÿÿÿHƒRMINORZ
+CODE_SMELL
+
+java:S1319"dThe type of "recette" should be an interface such as "Map" rather than the implementation "HashMap".(¦ŠİÌH†RMINORZ
+CODE_SMELL

@@ -1,0 +1,19 @@
+
+
+java:S1319"dThe type of "recette" should be an interface such as "Map" rather than the implementation "HashMap".(øº‚¸H¬RMINORZ
+CODE_SMELL
+g
+java:S32520"3Use static access with "java.util.Map" for "Entry".(ïùÛ¢ıÿÿÿÿH·RCRITICALZ
+CODE_SMELL
+’
+java:S1319"fThe type of "tables" should be an interface such as "List" rather than the implementation "ArrayList".(ïìŒ¼H©RMINORZ
+CODE_SMELL
+œ
+java:S1319p"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(€ï“†H²RMINORZ
+CODE_SMELL
+•
+java:S1319."dThe type of "recette" should be an interface such as "Map" rather than the implementation "HashMap".(ıóÆ“øÿÿÿÿH¯RMINORZ
+CODE_SMELL
+g
+java:S3252"3Use static access with "java.util.Map" for "Entry".(ïùÛ¢ıÿÿÿÿHµRCRITICALZ
+CODE_SMELL

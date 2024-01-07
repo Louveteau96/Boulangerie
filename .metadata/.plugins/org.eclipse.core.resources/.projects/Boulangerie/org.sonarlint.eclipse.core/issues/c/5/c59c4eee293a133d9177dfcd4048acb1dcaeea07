@@ -1,0 +1,49 @@
+
+`
+java:S3740$"/Provide the parametrized type for this generic.(ûí×¥üÿÿÿÿHøRMAJORZ
+CODE_SMELL
+`
+java:S3740h"/Provide the parametrized type for this generic.(£í¿µıÿÿÿÿHùRMAJORZ
+CODE_SMELL
+Z
+java:S3740i"/Provide the parametrized type for this generic.(Š¯álHúRMAJORZ
+CODE_SMELL
+u
+java:S1192="FDefine a constant instead of duplicating this literal "Arial" 6 times.(‰ÍŞüHûRCRITICALZ
+CODE_SMELL
+T
+java:S1604j"(Make this anonymous inner class a lambda(ÓÑÃH‚RMAJORZ
+CODE_SMELL
+U
+java:S1604Š"(Make this anonymous inner class a lambda(Œ“ª‡HƒRMAJORZ
+CODE_SMELL
+Z
+java:S1604”"(Make this anonymous inner class a lambda(±öêàüÿÿÿÿH„RMAJORZ
+CODE_SMELL
+d
+java:S1948"5Make "dialogueBoulangerie" transient or serializable.(¥Êİ‡H…RCRITICALZ
+CODE_SMELL
+}
+java:S3252."IUse static access with "javax.swing.WindowConstants" for "EXIT_ON_CLOSE".(Õû»öşÿÿÿÿH†RCRITICALZ
+CODE_SMELL
+k
+java:S1161T":Add the "@Override" annotation above this method signature(ÍŸÏ†ùÿÿÿÿHˆRMAJORZ
+CODE_SMELL
+z	java:S100°"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(­Ô·HŠRMINORZ
+CODE_SMELL
+U
+java:S1172°"(Remove this unused method parameter "e".(­Ô·H‹RMAJORZ
+CODE_SMELL
+	java:S100³"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…ôØ¢üÿÿÿÿHRMINORZ
+CODE_SMELL
+Z
+java:S1172³"(Remove this unused method parameter "e".(…ôØ¢üÿÿÿÿHRMAJORZ
+CODE_SMELL
+	java:S100·"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(àÉÜ´ûÿÿÿÿHRMINORZ
+CODE_SMELL
+Z
+java:S1172·"(Remove this unused method parameter "e".(àÉÜ´ûÿÿÿÿH‘RMAJORZ
+CODE_SMELL
+n
+java:S1126×"AReplace this if-then-else statement by a single return statement.(ÕÂ­÷H“RMINORZ
+CODE_SMELL

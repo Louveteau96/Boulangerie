@@ -1,0 +1,60 @@
+
+k
+java:S1161|":Add the "@Override" annotation above this method signature(ÍŸÏ†ùÿÿÿÿH¥RMAJORZ
+CODE_SMELL
+Z
+java:S1172É"(Remove this unused method parameter "e".(ÄšçªÿÿÿÿÿH¨RMAJORZ
+CODE_SMELL
+}
+java:S3252/"IUse static access with "javax.swing.WindowConstants" for "EXIT_ON_CLOSE".(Õû»öşÿÿÿÿH¡RCRITICALZ
+CODE_SMELL
+u
+java:S1192>"FDefine a constant instead of duplicating this literal "Arial" 9 times.(ÍÑ±ŸH”RCRITICALZ
+CODE_SMELL
+Z
+java:S1604 "(Make this anonymous inner class a lambda(ÊãœÀüÿÿÿÿHRMAJORZ
+CODE_SMELL
+\
+java:S1604ª"(Make this anonymous inner class a lambda(€ÚÆ³8‡œÂ¥Î1HÍRMAJORZ
+CODE_SMELL
+	java:S100Í"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€ÜèûÿÿÿÿH­RMINORZ
+CODE_SMELL
+	java:S100É"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÄšçªÿÿÿÿÿHªRMINORZ
+CODE_SMELL
+	java:S100Ñ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ê¤•÷8ÍŠà£Î1HìRMINORZ
+CODE_SMELL
+\
+java:S1172Ñ"(Remove this unused method parameter "e".(Ê¤•÷8ÍŠà£Î1HôRMAJORZ
+CODE_SMELL
+c
+java:S1128"0Remove this unused import 'java.awt.EventQueue'.(ùÅØæ8ç·¬¥Î1HëRMINORZ
+CODE_SMELL
+f
+java:S1128".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ8ç·¬¥Î1HíRMINORZ
+CODE_SMELL
+k
+java:S1161Z":Add the "@Override" annotation above this method signature(ÍŸÏ†ùÿÿÿÿH£RMAJORZ
+CODE_SMELL
+i
+java:S1128"1Remove this unused import 'java.awt.SystemColor'.(‚Ùûşúÿÿÿÿ8ç·¬¥Î1HïRMINORZ
+CODE_SMELL
+T
+java:S1604‹"(Make this anonymous inner class a lambda(òıJHŸRMAJORZ
+CODE_SMELL
+U
+java:S1604•"(Make this anonymous inner class a lambda(„Â´ôHRMAJORZ
+CODE_SMELL
+d
+java:S1948"5Make "dialogueBoulangerie" transient or serializable.(¥Êİ‡H RCRITICALZ
+CODE_SMELL
+z	java:S100Æ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÔååˆH§RMINORZ
+CODE_SMELL
+Z
+java:S1172Í"(Remove this unused method parameter "e".(€ÜèûÿÿÿÿH«RMAJORZ
+CODE_SMELL
+U
+java:S1172Æ"(Remove this unused method parameter "e".(ÔååˆH®RMAJORZ
+CODE_SMELL
+n
+java:S1128";Remove this unused import 'javax.swing.border.BevelBorder'.(óöèû8ç·¬¥Î1HñRMINORZ
+CODE_SMELL

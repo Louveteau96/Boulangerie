@@ -1,19 +1,22 @@
 
 …
-java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(İ¨”HñRMINORZ
-CODE_SMELL
-
-java:S13198"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(—ƒ¶üÿÿÿÿHóRMINORZ
-CODE_SMELL
-
-java:S1319="mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(¯èåÿÿÿÿÿHöRMINORZ
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(İ¨”H–RMINORZ
 CODE_SMELL
 ™
-java:S1319B"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(®šŠHùRMINORZ
+java:S1319D"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(®šŠHRMINORZ
 CODE_SMELL
-™
-java:S1319{"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(¬Åô¼HüRMINORZ
+
+java:S1319:"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(—ƒ¶üÿÿÿÿH‰RMINORZ
+CODE_SMELL
+
+java:S1319?"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(¯èåÿÿÿÿÿHŒRMINORZ
 CODE_SMELL
 `
-java:S2387†"1"uniteProduit" is the name of a field in "Stock".(‚œÙáHÿRBLOCKERZ
+java:S2387"1"uniteProduit" is the name of a field in "Stock".(‚œÙáH•RBLOCKERZ
+CODE_SMELL
+™
+java:S1319I"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(è—‡¬H’RMINORZ
+CODE_SMELL
+¡
+java:S1319‚"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(¬Åô¼8“ŸĞ¤Î1H„RMINORZ
 CODE_SMELL

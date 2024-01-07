@@ -1,0 +1,19 @@
+
+™
+java:S1319"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(®šŠH‘RMINORZ
+CODE_SMELL
+
+java:S1319"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(—ƒ¶üÿÿÿÿH‹RMINORZ
+CODE_SMELL
+g
+java:S32520"3Use static access with "java.util.Map" for "Entry".(ì¶Î¶üÿÿÿÿHšRCRITICALZ
+CODE_SMELL
+˜
+java:S1319/"gThe type of "produitMap" should be an interface such as "Map" rather than the implementation "HashMap".(ÊŞ‰ÙúÿÿÿÿH—RMINORZ
+CODE_SMELL
+
+java:S1319"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(¯èåÿÿÿÿÿHRMINORZ
+CODE_SMELL
+™
+java:S1319"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(øùŠÌH”RMINORZ
+CODE_SMELL

@@ -1,48 +1,48 @@
 
 h
-java:S3252¯"3Use static access with "java.util.Map" for "Entry".(÷ÚıÁşÿÿÿÿHàRCRITICALZ
+java:S3252ì"3Use static access with "java.util.Map" for "Entry".(³ÒÇ€ùÿÿÿÿHRCRITICALZ
+CODE_SMELL
+“
+java:S1319õ"fThe type of "tables" should be an interface such as "List" rather than the implementation "ArrayList".(—†˜òH˜RMINORZ
+CODE_SMELL
+a
+java:S3740ã"/Provide the parametrized type for this generic.(ÎÒÏşÿÿÿÿH†RMAJORZ
 CODE_SMELL
 [
-java:S3740è"/Provide the parametrized type for this generic.(ÆÜíHÉRMAJORZ
-CODE_SMELL
-Z
-java:S1128"'Remove this unused import 'controleur'.(°šÜ8¢ØØ¥Î1HRMINORZ
-CODE_SMELL
-“
-java:S1319­"fThe type of "tables" should be an interface such as "List" rather than the implementation "ArrayList".(¤—ªöHÍRMINORZ
+java:S3740è"/Provide the parametrized type for this generic.(ÆÜíHŠRMAJORZ
 CODE_SMELL
 a
-java:S3740×"/Provide the parametrized type for this generic.(‹ŞĞúÿÿÿÿHËRMAJORZ
-CODE_SMELL
-Š
-java:S3457ï"Q%n should be used in place of \n to produce the platform-specific line separator.(‚’ÛÃûÿÿÿÿ8ÚŞ€¥Î1H¾RMAJORZ
-CODE_SMELL
-a
-java:S3740ã"/Provide the parametrized type for this generic.(ÎÒÏşÿÿÿÿHÌRMAJORZ
-CODE_SMELL
-q	java:S106ã"9Replace this use of System.out or System.err by a logger.(¾´Õéÿÿÿÿÿ8¾ªÍ¥Î1HÊRMAJORZ
-CODE_SMELL
-h
-java:S3252Í"3Use static access with "java.util.Map" for "Entry".(³ÒÇ€ùÿÿÿÿHÜRCRITICALZ
-CODE_SMELL
-b
-java:S3252Ü"3Use static access with "java.util.Map" for "Entry".(‹™Û5HØRCRITICALZ
-CODE_SMELL
-a
-java:S3740ñ"/Provide the parametrized type for this generic.(ÎÒÏşÿÿÿÿHÊRMAJORZ
+java:S3740ñ"/Provide the parametrized type for this generic.(ÎÒÏşÿÿÿÿH—RMAJORZ
 CODE_SMELL
 š
-java:S1319Ñ"hThe type of "productsMap" should be an interface such as "Map" rather than the implementation "HashMap".(Ì—šˆıÿÿÿÿHÓRMINORZ
+java:S1319Ñ"hThe type of "productsMap" should be an interface such as "Map" rather than the implementation "HashMap".(Ì—šˆıÿÿÿÿHƒRMINORZ
+CODE_SMELL
+q	java:S106ã"9Replace this use of System.out or System.err by a logger.(¾´Õéÿÿÿÿÿ8¾ªÍ¥Î1H“RMAJORZ
+CODE_SMELL
+Z
+java:S1128"'Remove this unused import 'controleur'.(°šÜ8¢ØØ¥Î1HRMINORZ
+CODE_SMELL
+h
+java:S3252¿"3Use static access with "java.util.Map" for "Entry".(ì¶Î¶üÿÿÿÿH‹RCRITICALZ
+CODE_SMELL
+h
+java:S3252Í"3Use static access with "java.util.Map" for "Entry".(³ÒÇ€ùÿÿÿÿH”RCRITICALZ
 CODE_SMELL
 “
-java:S1319õ"fThe type of "tables" should be an interface such as "List" rather than the implementation "ArrayList".(—†˜òHĞRMINORZ
+java:S1319­"fThe type of "tables" should be an interface such as "List" rather than the implementation "ArrayList".(¤—ªöH‡RMINORZ
+CODE_SMELL
+b
+java:S3252Ü"3Use static access with "java.util.Map" for "Entry".(‹™Û5HRCRITICALZ
+CODE_SMELL
+a
+java:S3740×"/Provide the parametrized type for this generic.(‹ŞĞúÿÿÿÿH–RMAJORZ
 CODE_SMELL
 h
-java:S3252ù"3Use static access with "java.util.Map" for "Entry".(÷ÚıÁşÿÿÿÿHÖRCRITICALZ
+java:S3252¯"3Use static access with "java.util.Map" for "Entry".(÷ÚıÁşÿÿÿÿHÿRCRITICALZ
+CODE_SMELL
+Š
+java:S3457ï"Q%n should be used in place of \n to produce the platform-specific line separator.(˜»Çÿûÿÿÿÿ8ÚŞ€¥Î1H›RMAJORZ
 CODE_SMELL
 h
-java:S3252ì"3Use static access with "java.util.Map" for "Entry".(³ÒÇ€ùÿÿÿÿHÚRCRITICALZ
-CODE_SMELL
-h
-java:S3252¿"3Use static access with "java.util.Map" for "Entry".(ì¶Î¶üÿÿÿÿHŞRCRITICALZ
+java:S3252ù"3Use static access with "java.util.Map" for "Entry".(÷ÚıÁşÿÿÿÿH‘RCRITICALZ
 CODE_SMELL
